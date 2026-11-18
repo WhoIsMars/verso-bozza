@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Verso, prima bozza</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Prima bozza del sito: arte multidisciplinare, opere, parole e immagini in movimento.">
+<meta property="og:title" content="Verso · prima bozza del sito">
+<meta property="og:description" content="Arte multidisciplinare. Opere, parole e immagini in movimento, capitolo dopo capitolo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://whoismars.github.io/verso-bozza/anteprima.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#100e0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23100e0d'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-style='italic' font-size='40' text-anchor='middle' fill='%23e3b878'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Archivo:wght@300;400;500&family=Archivo+Narrow:wght@500&family=Noto+Serif+SC:wght@400&display=swap">
+<style>
+/* Layout: apertura in 3D con forme calde, poi capitoli a tutto schermo guidati dallo scorrimento: la storia, le opere, le parole, i video, le mostre, i contatti. */
+:root{
+  --stone:#ebe5dc; --night:#100e0d; --ink:#1a1614; --light:#f4efe7; --mute:#958c83;
+  --ochre:#c8893b; --oxblood:#7a2430; --gold:#e3b878;
+  --display:"Bodoni Moda","Noto Serif SC","Didot",Georgia,serif;
+  --body:"Archivo",system-ui,sans-serif;
+  --label:"Archivo Narrow","Arial Narrow",system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--light);font-family:var(--body);font-weight:400;font-size:16px;line-height:1.55}
+::selection{background:var(--gold);color:var(--night)}
+html{scrollbar-color:#3d3430 var(--night);scrollbar-width:thin}
+svg.ic{width:1em;height:1em;display:block;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lab{font-family:var(--label);font-weight:500;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+button{font:inherit}
+button.lab{background:none;border:0;color:inherit;cursor:pointer;padding:8px 0}
+button:focus-visible,a:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+
+/* caricamento: sparisce anche senza script */
+#loader{position:fixed;inset:0;z-index:50;background:var(--night);display:flex;justify-content:space-between;align-items:flex-end;padding:24px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));pointer-events:none;animation:loaderOut .5s ease 1.4s forwards}
+#loader b{font-weight:300;font-size:clamp(4rem,14vw,10rem);line-height:.8;font-variant-numeric:tabular-nums}
+#loader i{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.6rem);color:var(--gold)}
+#loader.done{opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s}
+@keyframes loaderOut{to{opacity:0;visibility:hidden}}
+
+/* barra in alto */
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:calc(12px + env(safe-area-inset-top,0px));padding-bottom:12px;mix-blend-mode:difference;color:#fff;flex-wrap:wrap}
+.bar a{color:inherit;text-decoration:none}
+.langs{display:flex;gap:2px;flex-wrap:wrap}
+.langs button{background:none;border:0;color:inherit;cursor:pointer;padding:6px 7px;opacity:.55;font-family:var(--label);font-size:.78rem;letter-spacing:.08em}
+.langs button[aria-pressed=true]{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.langs button:hover{opacity:1}
+.bar-r{display:flex;align-items:center;gap:20px}
+#menuBtn{display:inline-flex;align-items:center;gap:10px}
+#menuBtn i{display:grid;gap:4px;width:18px}
+#menuBtn i::before,#menuBtn i::after{content:"";height:1px;background:currentColor;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+#menuBtn[aria-expanded=true] i::before{transform:translateY(2.5px) rotate(45deg)}
+#menuBtn[aria-expanded=true] i::after{transform:translateY(-2.5px) rotate(-45deg)}
+
+/* indice a tutto schermo */
+.menu{position:fixed;inset:0;z-index:18;background:var(--night);display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:calc(80px + env(safe-area-inset-top,0px));padding-bottom:calc(28px + env(safe-area-inset-bottom,0px));clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s .8s}
+.menu.open{clip-path:inset(0);visibility:visible;transition:clip-path .8s cubic-bezier(.7,0,.2,1)}
+.menu ol{list-style:none;margin:0;padding:0;align-self:center;display:grid;gap:clamp(2px,1vh,12px)}
+.menu a{display:flex;align-items:baseline;gap:clamp(14px,3vw,32px);color:var(--light);text-decoration:none;padding-block:4px;transition:color .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.menu a span{font-family:var(--label);font-weight:500;font-size:.78rem;letter-spacing:.14em;color:var(--mute);min-width:3ch}
+.menu a b{font-family:var(--display);font-weight:400;font-size:min(7.4vh,10.5vw,5.4rem);line-height:1}
+.menu a b em{color:var(--gold)}
+.menu a:hover,.menu a:focus-visible{color:var(--gold);transform:translateX(12px)}
+.menu li{opacity:0;transform:translateY(24px);transition:opacity .5s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.menu.open li{opacity:1;transform:none}
+.menu.open li:nth-child(2){transition-delay:.05s}.menu.open li:nth-child(3){transition-delay:.1s}.menu.open li:nth-child(4){transition-delay:.15s}.menu.open li:nth-child(5){transition-delay:.2s}.menu.open li:nth-child(6){transition-delay:.25s}
+.menu-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid #2c2724;padding-top:16px;color:var(--mute)}
+
+.beam{position:fixed;top:0;bottom:0;right:max(8px,env(safe-area-inset-right,0px));width:1px;z-index:19;background:rgba(255,255,255,.08);pointer-events:none}
+.beam i{position:absolute;left:0;top:0;width:1px;height:0;background:linear-gradient(#fff0,var(--gold) 70%,#fff);box-shadow:0 0 12px 2px rgba(227,184,120,.55)}
+
+/* apertura */
+.hero{background:var(--stone);color:var(--ink);padding-block:calc(76px + env(safe-area-inset-top,0px)) 28px;display:grid;gap:18px}
+.hero-top{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:end}
+.hero h1{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(3.4rem,11vw,9rem);line-height:.85;margin:0;letter-spacing:-.02em}
+.hero .who{display:grid;gap:10px}
+.hero .who b{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.8rem)}
+.hero p{margin:0;max-width:46ch;font-size:1.05rem}
+.tag{display:inline-block;justify-self:start;border:1px solid currentColor;border-radius:99px;padding:3px 10px;color:var(--oxblood)}
+.stage{position:relative;height:min(70vh,660px);border-radius:22px;overflow:hidden;background:radial-gradient(circle at 30% 30%,#3a2c24,#120e0c 70%)}
+.stage canvas{display:block;width:100%;height:100%}
+.stage .hint{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#eadfce}
+.marks{display:flex;justify-content:space-between;gap:12px;color:var(--ink)}
+
+/* titoli dei capitoli */
+.chap-title{min-height:62vh;display:grid;place-content:center;text-align:center;gap:14px;padding-block:80px}
+.chap-title h2{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,9vw,7.5rem);line-height:.95;margin:0}
+.chap-title h2 em{color:var(--gold)}
+.js .chap-title h2{clip-path:inset(0 0 100% 0);transform:translateY(.3em);transition:clip-path 1.2s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
+.js .chap-title.in h2{clip-path:inset(-20% -10% -25% -10%);transform:none}
+.chap-title .lab{color:var(--mute)}
+
+/* scene fissate durante lo scorrimento */
+.scene{position:relative}
+.pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.layer{position:absolute;inset:0;transition:opacity .6s ease}
+.layer canvas{width:100%;height:100%;display:block;transform:scale(1.08);transition:transform 6s linear}
+.layer.on canvas{transform:scale(1)}
+.layer::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,14,13,.9),rgba(16,14,13,.15) 60%)}
+.cap{position:absolute;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:2;display:grid;gap:10px;max-width:780px}
+.cap h3{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,5vw,3.6rem);line-height:1.02;margin:0}
+.cap p{margin:0;color:#dcd3c8;max-width:52ch;font-size:1.05rem}
+.cap .lab{color:var(--gold)}
+.cap.swap>*{animation:capIn 1s cubic-bezier(.16,1,.3,1) both}
+.cap.swap>:nth-child(2){animation-delay:.08s}.cap.swap>:nth-child(3){animation-delay:.16s}
+@keyframes capIn{from{opacity:0;transform:translateY(20px);filter:blur(8px)}}
+.steps{position:absolute;top:calc(76px + env(safe-area-inset-top,0px));right:max(28px,calc(env(safe-area-inset-right,0px) + 28px));z-index:2;display:grid;gap:6px;text-align:right;color:var(--mute)}
+.steps span.on{color:var(--light)}
+
+/* parete delle opere */
+.track{position:absolute;top:0;bottom:0;left:0;display:flex;align-items:center;gap:4vw;padding-inline:8vw;will-change:transform}
+.work{flex:none;display:grid;gap:10px;background:none;border:0;color:inherit;cursor:pointer;text-align:left;padding:0}
+.work canvas{display:block;height:min(60vh,540px);width:auto;max-width:80vw;border-radius:3px;box-shadow:0 30px 60px -30px #000}
+.work span{color:var(--mute)}
+.work b{font-family:var(--display);font-weight:400;font-size:1.3rem;letter-spacing:0;text-transform:none;color:var(--light)}
+.gal-head{position:absolute;top:calc(76px + env(safe-area-inset-top,0px));left:0;right:0;z-index:2;display:flex;justify-content:space-between;color:var(--mute)}
+
+/* tutte le opere */
+.archive{padding-block:24px 110px;display:grid;gap:28px}
+.archive header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid #2c2724;padding-bottom:14px}
+.archive h3{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,4vw,2.8rem);margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.grid button{display:grid;gap:8px;background:none;border:0;padding:0;color:inherit;cursor:pointer;text-align:left}
+.grid canvas{width:100%;max-width:100%;aspect-ratio:4/5;height:auto;display:block;border-radius:2px;background:#2a231f;transition:transform .35s ease}
+.grid button:hover canvas{transform:translateY(-4px)}
+.grid span{font-size:.82rem;color:var(--mute)}
+.grid span b{font-weight:400;color:var(--light)}
+.grid button:focus-visible{outline:1px solid var(--gold);outline-offset:6px}
+.st{display:inline-flex;align-items:center;gap:6px;margin-left:8px;font-style:normal}
+.st::before{content:"";width:6px;height:6px;border-radius:50%;background:#c4574f}
+
+/* scheda opera */
+dialog{border:0;padding:0;background:var(--night);color:var(--light);max-width:min(980px,calc(100vw - 32px));width:100%;border-radius:6px;box-shadow:0 40px 120px #000}
+dialog::backdrop{background:rgba(8,7,6,.82);backdrop-filter:blur(4px)}
+dialog[open]{animation:sheetIn .6s cubic-bezier(.16,1,.3,1)}
+dialog[open]::backdrop{animation:fadeIn .4s ease}
+@keyframes sheetIn{from{opacity:0;transform:translateY(28px) scale(.98)}}
+@keyframes fadeIn{from{opacity:0}}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet-nav{display:flex;align-items:center;gap:6px;color:var(--mute)}
+.sheet-nav button{width:40px;height:40px;display:grid;place-content:center;border:1px solid #3a3430;border-radius:50%;background:none;color:var(--light);cursor:pointer;font-size:18px;transition:border-color .3s,color .3s}
+.sheet-nav button:hover{border-color:var(--gold);color:var(--gold)}
+.sheet-nav span{font-variant-numeric:tabular-nums;min-width:7ch;text-align:center}
+.sheet{display:grid;grid-template-columns:1.2fr 1fr;min-height:0}
+.sheet canvas{width:100%;height:100%;max-height:80vh;object-fit:cover;display:block;background:#2a231f}
+.sheet .info{padding:28px;display:grid;gap:14px;align-content:start;min-width:0}
+.sheet h4{font-family:var(--display);font-weight:400;font-size:2rem;margin:0;line-height:1.05}
+.sheet dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0}
+.sheet dt{color:var(--mute)}
+.sheet dd{margin:0}
+.close{background:none;border:1px solid #3a3430;color:var(--light);border-radius:99px;padding:8px 16px;cursor:pointer;transition:border-color .3s}
+.close:hover{border-color:var(--light)}
+.ask{border-top:1px solid #2c2724;padding-top:14px;display:grid;gap:6px}
+.ask a{color:var(--gold);text-decoration:none;font-size:1.05rem}
+
+/* poesia */
+.poem-wrap{height:100%;display:grid;place-content:center;padding-block:60px}
+.poem{font-family:var(--display);font-size:clamp(1.7rem,4.6vw,3.6rem);line-height:1.25;max-width:20ch;margin:0}
+.poem span{opacity:.16;transition:opacity .35s ease}
+.poem span.lit{opacity:1}
+.poem-meta{margin-top:24px;color:var(--mute)}
+
+/* video */
+.videos{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-block:0 110px}
+.vid{display:grid;gap:12px}
+.vid .frame{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:6px;overflow:hidden;background:#1d1815}
+.vid canvas{width:100%;height:100%;display:block}
+.vid .frame b{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:1px solid #fff;display:grid;place-content:center;background:rgba(0,0,0,.25);backdrop-filter:blur(6px);font-size:22px;transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s}
+.vid .frame b svg{fill:currentColor;stroke:none;transform:translateX(2px)}
+.vid:hover .frame b{transform:translate(-50%,-50%) scale(1.08);background:rgba(200,137,59,.35)}
+.vid h4{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:0}
+.vid p{margin:0;color:var(--mute)}
+
+/* mostre */
+.shows{padding-block:0 120px;display:grid;max-width:980px}
+.show{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:20px;align-items:baseline;padding-block:20px;border-bottom:1px solid #2c2724}
+.show:first-child{border-top:1px solid #2c2724}
+.show .yr{font-variant-numeric:tabular-nums;color:var(--gold)}
+.show h4{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.6vw,1.9rem);margin:0}
+.show p{margin:4px 0 0;color:var(--mute)}
+.show .kind{color:var(--mute)}
+
+/* contatti */
+.end{background:var(--stone);color:var(--ink);padding-block:100px 60px;display:grid;gap:22px}
+.end > p{margin:0;max-width:56ch;font-size:1.1rem}
+.line{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid #cfc6ba;padding-bottom:14px}
+.line .lab{width:110px;color:#6d645b}
+.line .big{font-family:var(--display);font-size:clamp(1.8rem,6vw,4.4rem);line-height:1;word-break:break-word;min-width:0;color:inherit;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .6s cubic-bezier(.16,1,.3,1)}
+.line .big:hover{background-size:100% 1px}
+.copy{margin-left:auto;background:none;border:1px solid var(--ink);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
+.copy:hover{background:var(--ink);color:var(--stone)}
+.note{font-size:.8rem;color:#6b6259;max-width:70ch;margin:0}
+
+@media(max-width:760px){
+  .hero-top,.sheet,.videos{grid-template-columns:1fr}
+  .stage{height:56vh}.steps{display:none}
+  .show{grid-template-columns:60px minmax(0,1fr)}.show .kind{grid-column:2}
+  .sheet canvas{max-height:46vh}
+  .line .lab{width:auto}.copy{margin-left:0}
+  .bar .langs{display:none}
+  .sheet .info{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.layer,.poem span{transition:none}.layer canvas{transform:none;transition:none}#loader{animation:none;display:none}
+  .js .chap-title h2{clip-path:none;transform:none;transition:none}.cap.swap>*,dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:none}}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true"><b id="count">000</b><i>Verso</i></div>
+
+<div class="bar gut">
+  <button class="lab" type="button" id="soundBtn" aria-pressed="false" data-i18n="sound_off">[ Suono spento ]</button>
+  <div class="bar-r">
+    <div class="langs" role="group" aria-label="Lingua">
+      <button type="button" data-l="it" aria-pressed="true">IT</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+      <button type="button" data-l="ru" aria-pressed="false">RU</button>
+      <button type="button" data-l="zh" aria-pressed="false">中文</button>
+      <button type="button" data-l="fr" aria-pressed="false">FR</button>
+      <button type="button" data-l="de" aria-pressed="false">DE</button>
+    </div>
+    <button class="lab" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu"><span data-i18n="menu">Indice</span><i aria-hidden="true"></i></button>
+  </div>
+</div>
+<nav class="menu gut" id="menu" aria-label="Indice">
+  <ol>
+    <li><a href="#storia"><span>I</span><b data-i18n-html="ch1">La <em>storia</em></b></a></li>
+    <li><a href="#opere"><span>II</span><b data-i18n-html="ch2">Le <em>opere</em></b></a></li>
+    <li><a href="#parole"><span>III</span><b data-i18n-html="ch3">Le <em>parole</em></b></a></li>
+    <li><a href="#video"><span>IV</span><b data-i18n-html="ch4">In <em>movimento</em></b></a></li>
+    <li><a href="#mostre"><span>V</span><b data-i18n-html="ch5">Mostre ed <em>eventi</em></b></a></li>
+    <li><a href="#contatti"><span>→</span><b data-i18n="nav_contacts">Contatti</b></a></li>
+  </ol>
+  <div class="menu-foot lab">
+    <div class="langs" role="group" aria-label="Lingua">
+      <button type="button" data-l="it" aria-pressed="true">IT</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+      <button type="button" data-l="ru" aria-pressed="false">RU</button>
+      <button type="button" data-l="zh" aria-pressed="false">中文</button>
+      <button type="button" data-l="fr" aria-pressed="false">FR</button>
+      <button type="button" data-l="de" aria-pressed="false">DE</button>
+    </div>
+    <span>Nome Cognome</span>
+  </div>
+</nav>
+<div class="beam" aria-hidden="true"><i id="beam"></i></div>
+
+<header class="hero gut">
+  <div class="hero-top">
+    <h1>Verso</h1>
+    <div class="who">
+      <span class="lab tag" data-i18n="provisional">Nome provvisorio, da scegliere</span>
+      <b>Nome Cognome</b>
+      <p data-i18n="hero_p">Arte multidisciplinare. Opere, parole e immagini in movimento, raccontate capitolo dopo capitolo.</p>
+    </div>
+  </div>
+  <div class="stage" id="stage"><canvas id="gl"></canvas><span class="hint lab" data-i18n="scroll">[ Scorri per entrare ]</span></div>
+  <div class="marks lab" aria-hidden="true"><span>+</span><span data-i18n="draft">Prima bozza · immagini e testi d'esempio</span><span>+</span></div>
+</header>
+
+<section class="chap-title gut" id="storia">
+  <span class="lab" data-chap="I">[ Capitolo I ]</span>
+  <h2 data-i18n-html="ch1">La <em>storia</em></h2>
+  <span class="lab" data-i18n="ch1_sub">Una vita raccontata come un racconto</span>
+</section>
+
+<section class="scene" id="story" style="height:320vh">
+  <div class="pin">
+    <div class="layer on"><canvas class="paint" data-seed="41" data-pal="#2a1f1a #6b4a38 #c8893b #ead9c2 #7a2430"></canvas></div>
+    <div class="layer" style="opacity:0"><canvas class="paint" data-seed="52" data-pal="#1c1614 #7a2430 #c8893b #f4efe7 #3d3530"></canvas></div>
+    <div class="layer" style="opacity:0"><canvas class="paint" data-seed="63" data-pal="#2b211c #a06a3f #e3b878 #f4efe7 #4a2a2a"></canvas></div>
+    <div class="steps lab" aria-hidden="true"><span class="on">01</span><span>02</span><span>03</span></div>
+    <div class="cap gut" id="storyCap"><span class="lab"></span><h3></h3><p></p></div>
+  </div>
+</section>
+
+<section class="chap-title gut" id="opere">
+  <span class="lab" data-chap="II">[ Capitolo II ]</span>
+  <h2 data-i18n-html="ch2">Le <em>opere</em></h2>
+  <span class="lab" data-i18n="ch2_sub">Scorri, la parete si muove</span>
+</section>
+
+<section class="scene" id="gallery" style="height:400vh">
+  <div class="pin">
+    <div class="gal-head gut lab"><span data-i18n="selection">Una selezione</span><span id="galCount">01 / 05</span></div>
+    <div class="track" id="track"></div>
+  </div>
+</section>
+
+<section class="archive gut">
+  <header><h3 data-i18n="all_works">Tutte le opere</h3><span class="lab" style="color:var(--mute)" data-i18n="all_hint">30 opere · tocca un'opera per vedere la scheda</span></header>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="chap-title gut" id="parole">
+  <span class="lab" data-chap="III">[ Capitolo III ]</span>
+  <h2 data-i18n-html="ch3">Le <em>parole</em></h2>
+  <span class="lab" data-i18n="ch3_sub">I versi si accendono mentre scorri</span>
+</section>
+
+<section class="scene" id="poemScene" style="height:250vh">
+  <div class="pin gut">
+    <div class="poem-wrap">
+      <p class="poem" id="poem">Ho lasciato la finestra aperta perché il colore potesse uscire, e la sera tornasse a prenderlo.</p>
+      <span class="lab poem-meta" data-i18n="sample_text">[ Testo d'esempio ]</span>
+    </div>
+  </div>
+</section>
+
+<section class="chap-title gut" id="video">
+  <span class="lab" data-chap="IV">[ Capitolo IV ]</span>
+  <h2 data-i18n-html="ch4">In <em>movimento</em></h2>
+  <span class="lab" data-i18n="ch4_sub">Il lavoro nello studio e le opere finite</span>
+</section>
+
+<section class="videos gut">
+  <div class="vid"><div class="frame"><canvas class="flow" data-seed="5"></canvas><b aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12z"/></svg></b></div><h4 data-i18n="v1">Mentre lavoro</h4><p data-i18n="v_note">Segnaposto: qui andrà il video vero.</p></div>
+  <div class="vid"><div class="frame"><canvas class="flow" data-seed="9"></canvas><b aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M7 4.5v15L19.5 12z"/></svg></b></div><h4 data-i18n="v2">Le opere finite</h4><p data-i18n="v_note">Segnaposto: qui andrà il video vero.</p></div>
+</section>
+
+<section class="chap-title gut" id="mostre">
+  <span class="lab" data-chap="V">[ Capitolo V ]</span>
+  <h2 data-i18n-html="ch5">Mostre ed <em>eventi</em></h2>
+  <span class="lab" data-i18n="ch5_sub">Dove vedere le opere dal vivo</span>
+</section>
+
+<section class="shows gut" style="margin-inline:auto">
+  <div class="show"><span class="yr">2026</span><div><h4>Titolo della mostra</h4><p>Galleria, città</p></div><span class="lab kind" data-i18n="solo">Personale</span></div>
+  <div class="show"><span class="yr">2025</span><div><h4>Titolo della mostra</h4><p>Spazio espositivo, città</p></div><span class="lab kind" data-i18n="group">Collettiva</span></div>
+  <div class="show"><span class="yr">2024</span><div><h4>Lettura di poesie</h4><p>Biblioteca, città</p></div><span class="lab kind" data-i18n="event">Evento</span></div>
+  <div class="show"><span class="yr">2023</span><div><h4>Titolo della mostra</h4><p>Galleria, città</p></div><span class="lab kind" data-i18n="group">Collettiva</span></div>
+</section>
+
+<footer class="end gut" id="contatti">
+  <span class="lab" data-i18n="contacts">[ Contatti ]</span>
+  <p data-i18n="contact_p">Per vedere un'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.</p>
+  <div class="line"><span class="lab" data-i18n="phone">Telefono</span><a class="big" id="tel" href="tel:+390000000000">+39 000 000 0000</a><button class="copy lab" type="button" data-copy="tel" data-i18n="copy">Copia</button></div>
+  <div class="line"><span class="lab">Email</span><a class="big" id="mail" href="mailto:email@esempio.it">email@esempio.it</a><button class="copy lab" type="button" data-copy="mail" data-i18n="copy">Copia</button></div>
+  <p class="note" data-i18n="draft_note">Prima bozza. Nome, testi, immagini, video e contatti sono d'esempio. Le traduzioni dei titoli sono da far rivedere a madrelingua; i testi lunghi verranno tradotti dopo.</p>
+</footer>
+
+<dialog id="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet">
+    <canvas id="sheetArt" width="600" height="750"></canvas>
+    <div class="info">
+      <div class="sheet-top"><div class="sheet-nav lab"><button type="button" id="prevW" data-i18n-aria="prev" aria-label="Opera precedente"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="sheetPos">01 / 30</span><button type="button" id="nextW" data-i18n-aria="next" aria-label="Opera successiva"><svg class="ic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div><button class="close lab" type="button" id="closeSheet" data-i18n="close">Chiudi</button></div>
+      <h4 id="sheetTitle">Titolo opera</h4>
+      <dl id="sheetData"></dl>
+      <div class="ask"><span class="lab" style="color:var(--mute)" data-i18n="ask">Ti interessa quest'opera?</span><a href="#contatti" id="askLink" data-i18n="ask_link">Chiamami o scrivimi</a></div>
+    </div>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.documentElement.classList.add('js');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+
+/* traduzioni dell'interfaccia: da far rivedere a madrelingua */
+const T={
+ it:{sound_off:'[ Suono spento ]',sound_on:'[ Suono acceso ]',provisional:'Nome provvisorio, da scegliere',hero_p:'Arte multidisciplinare. Opere, parole e immagini in movimento, raccontate capitolo dopo capitolo.',scroll:'[ Scorri per entrare ]',draft:'Prima bozza · immagini e testi d\'esempio',chapter:'Capitolo',ch1:'La <em>storia</em>',ch1_sub:'Una vita raccontata come un racconto',ch2:'Le <em>opere</em>',ch2_sub:'Scorri, la parete si muove',selection:'Una selezione',all_works:'Tutte le opere',all_hint:'30 opere · tocca un\'opera per vedere la scheda',ch3:'Le <em>parole</em>',ch3_sub:'I versi si accendono mentre scorri',sample_text:'[ Testo d\'esempio ]',ch4:'In <em>movimento</em>',ch4_sub:'Il lavoro nello studio e le opere finite',v1:'Mentre lavoro',v2:'Le opere finite',v_note:'Segnaposto: qui andrà il video vero.',ch5:'Mostre ed <em>eventi</em>',ch5_sub:'Dove vedere le opere dal vivo',solo:'Personale',group:'Collettiva',event:'Evento',contacts:'[ Contatti ]',contact_p:'Per vedere un\'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.',phone:'Telefono',copy:'Copia',copied:'Copiato',close:'Chiudi',ask:'Ti interessa quest\'opera?',ask_link:'Chiamami o scrivimi',technique:'Tecnica',size:'Misure',year:'Anno',status:'Stato',avail:'Disponibile',sold:'Venduta',draft_note:'Prima bozza. Nome, testi, immagini, video e contatti sono d\'esempio. Le traduzioni dei titoli sono da far rivedere a madrelingua; i testi lunghi verranno tradotti dopo.'},
+ en:{sound_off:'[ Sound off ]',sound_on:'[ Sound on ]',provisional:'Working name, still to be chosen',hero_p:'Multidisciplinary art. Works, words and moving images, told chapter by chapter.',scroll:'[ Scroll to enter ]',draft:'First draft · sample images and texts',chapter:'Chapter',ch1:'The <em>story</em>',ch1_sub:'A life told as a tale',ch2:'The <em>works</em>',ch2_sub:'Scroll, the wall moves',selection:'A selection',all_works:'All works',all_hint:'30 works · tap a work to see its details',ch3:'The <em>words</em>',ch3_sub:'The verses light up as you scroll',sample_text:'[ Sample text ]',ch4:'In <em>motion</em>',ch4_sub:'Work in the studio and finished pieces',v1:'While I work',v2:'Finished works',v_note:'Placeholder: the real video goes here.',ch5:'Exhibitions and <em>events</em>',ch5_sub:'Where to see the works in person',solo:'Solo show',group:'Group show',event:'Event',contacts:'[ Contact ]',contact_p:'To see a work in person, ask for a price or buy it, call or write to me.',phone:'Phone',copy:'Copy',copied:'Copied',close:'Close',ask:'Interested in this work?',ask_link:'Call or write to me',technique:'Technique',size:'Size',year:'Year',status:'Status',avail:'Available',sold:'Sold',draft_note:'First draft. Name, texts, images, videos and contacts are samples. Translations to be checked by native speakers; longer texts will be translated later.'},
+ ru:{sound_off:'[ Звук выкл. ]',sound_on:'[ Звук вкл. ]',provisional:'Рабочее название, ещё не выбрано',hero_p:'Междисциплинарное искусство. Работы, слова и движущиеся образы, глава за главой.',scroll:'[ Прокрутите, чтобы войти ]',draft:'Первый черновик · примеры изображений и текстов',chapter:'Глава',ch1:'<em>История</em>',ch1_sub:'Жизнь, рассказанная как сказка',ch2:'<em>Работы</em>',ch2_sub:'Прокручивайте, стена движется',selection:'Избранное',all_works:'Все работы',all_hint:'30 работ · нажмите на работу, чтобы открыть описание',ch3:'<em>Слова</em>',ch3_sub:'Стихи загораются при прокрутке',sample_text:'[ Пример текста ]',ch4:'В <em>движении</em>',ch4_sub:'Работа в мастерской и готовые произведения',v1:'Во время работы',v2:'Готовые работы',v_note:'Заглушка: здесь будет настоящее видео.',ch5:'Выставки и <em>события</em>',ch5_sub:'Где увидеть работы вживую',solo:'Персональная',group:'Групповая',event:'Событие',contacts:'[ Контакты ]',contact_p:'Чтобы увидеть работу вживую, узнать цену или купить её, позвоните или напишите мне.',phone:'Телефон',copy:'Копировать',copied:'Скопировано',close:'Закрыть',ask:'Вас интересует эта работа?',ask_link:'Позвоните или напишите мне',technique:'Техника',size:'Размер',year:'Год',status:'Статус',avail:'Доступна',sold:'Продана',draft_note:'Первый черновик. Название, тексты, изображения, видео и контакты приведены для примера. Переводы нужно проверить носителям языка; длинные тексты будут переведены позже.'},
+ zh:{sound_off:'[ 声音 关 ]',sound_on:'[ 声音 开 ]',provisional:'暂定名称，待确定',hero_p:'跨学科艺术。作品、文字与动态影像，一章一章地讲述。',scroll:'[ 向下滚动进入 ]',draft:'初稿 · 示例图片与文字',chapter:'第',ch1:'<em>故事</em>',ch1_sub:'像讲故事一样讲述人生',ch2:'<em>作品</em>',ch2_sub:'滚动，墙面随之移动',selection:'精选',all_works:'全部作品',all_hint:'30 件作品 · 点击作品查看详情',ch3:'<em>文字</em>',ch3_sub:'诗句随滚动逐一亮起',sample_text:'[ 示例文字 ]',ch4:'<em>动态</em>',ch4_sub:'工作室中的创作与完成的作品',v1:'创作中',v2:'完成的作品',v_note:'占位：此处将放置真实视频。',ch5:'展览与<em>活动</em>',ch5_sub:'在哪里亲眼看到作品',solo:'个展',group:'联展',event:'活动',contacts:'[ 联系方式 ]',contact_p:'如需亲眼观看作品、询问价格或购买，请致电或写信给我。',phone:'电话',copy:'复制',copied:'已复制',close:'关闭',ask:'对这件作品感兴趣？',ask_link:'请致电或写信给我',technique:'技法',size:'尺寸',year:'年份',status:'状态',avail:'可售',sold:'已售',draft_note:'初稿。名称、文字、图片、视频和联系方式均为示例。标题翻译需请母语人士审校；较长的文字稍后翻译。'},
+ fr:{sound_off:'[ Son coupé ]',sound_on:'[ Son activé ]',provisional:'Nom provisoire, à choisir',hero_p:'Art pluridisciplinaire. Œuvres, mots et images en mouvement, racontés chapitre après chapitre.',scroll:'[ Faites défiler pour entrer ]',draft:'Première ébauche · images et textes d\'exemple',chapter:'Chapitre',ch1:'L\'<em>histoire</em>',ch1_sub:'Une vie racontée comme un conte',ch2:'Les <em>œuvres</em>',ch2_sub:'Faites défiler, le mur bouge',selection:'Une sélection',all_works:'Toutes les œuvres',all_hint:'30 œuvres · touchez une œuvre pour voir sa fiche',ch3:'Les <em>mots</em>',ch3_sub:'Les vers s\'allument pendant le défilement',sample_text:'[ Texte d\'exemple ]',ch4:'En <em>mouvement</em>',ch4_sub:'Le travail à l\'atelier et les œuvres achevées',v1:'Pendant que je travaille',v2:'Les œuvres achevées',v_note:'Emplacement : la vraie vidéo viendra ici.',ch5:'Expositions et <em>événements</em>',ch5_sub:'Où voir les œuvres en vrai',solo:'Personnelle',group:'Collective',event:'Événement',contacts:'[ Contact ]',contact_p:'Pour voir une œuvre en vrai, demander un prix ou l\'acheter, appelez-moi ou écrivez-moi.',phone:'Téléphone',copy:'Copier',copied:'Copié',close:'Fermer',ask:'Cette œuvre vous intéresse ?',ask_link:'Appelez-moi ou écrivez-moi',technique:'Technique',size:'Dimensions',year:'Année',status:'État',avail:'Disponible',sold:'Vendue',draft_note:'Première ébauche. Nom, textes, images, vidéos et contacts sont des exemples. Traductions à faire relire par des locuteurs natifs ; les textes longs seront traduits plus tard.'},
+ de:{sound_off:'[ Ton aus ]',sound_on:'[ Ton an ]',provisional:'Arbeitstitel, noch zu wählen',hero_p:'Multidisziplinäre Kunst. Werke, Worte und bewegte Bilder, Kapitel für Kapitel erzählt.',scroll:'[ Scrollen zum Eintreten ]',draft:'Erster Entwurf · Beispielbilder und -texte',chapter:'Kapitel',ch1:'Die <em>Geschichte</em>',ch1_sub:'Ein Leben, erzählt wie eine Geschichte',ch2:'Die <em>Werke</em>',ch2_sub:'Scrollen, die Wand bewegt sich',selection:'Eine Auswahl',all_works:'Alle Werke',all_hint:'30 Werke · tippen Sie auf ein Werk für Details',ch3:'Die <em>Worte</em>',ch3_sub:'Die Verse leuchten beim Scrollen auf',sample_text:'[ Beispieltext ]',ch4:'In <em>Bewegung</em>',ch4_sub:'Arbeit im Atelier und fertige Werke',v1:'Während ich arbeite',v2:'Fertige Werke',v_note:'Platzhalter: hier kommt das echte Video.',ch5:'Ausstellungen und <em>Termine</em>',ch5_sub:'Wo man die Werke live sehen kann',solo:'Einzelausstellung',group:'Gruppenausstellung',event:'Veranstaltung',contacts:'[ Kontakt ]',contact_p:'Um ein Werk live zu sehen, nach dem Preis zu fragen oder es zu kaufen, rufen Sie mich an oder schreiben Sie mir.',phone:'Telefon',copy:'Kopieren',copied:'Kopiert',close:'Schließen',ask:'Interesse an diesem Werk?',ask_link:'Rufen Sie mich an oder schreiben Sie mir',technique:'Technik',size:'Maße',year:'Jahr',status:'Status',avail:'Verfügbar',sold:'Verkauft',draft_note:'Erster Entwurf. Name, Texte, Bilder, Videos und Kontakte sind Beispiele. Übersetzungen von Muttersprachlern prüfen lassen; längere Texte werden später übersetzt.'}
+};
+const T2={
+ it:{menu:'Indice',nav_contacts:'Contatti',prev:'Opera precedente',next:'Opera successiva'},
+ en:{menu:'Index',nav_contacts:'Contact',prev:'Previous work',next:'Next work'},
+ ru:{menu:'Оглавление',nav_contacts:'Контакты',prev:'Предыдущая работа',next:'Следующая работа'},
+ zh:{menu:'目录',nav_contacts:'联系方式',prev:'上一件作品',next:'下一件作品'},
+ fr:{menu:'Sommaire',nav_contacts:'Contact',prev:'Œuvre précédente',next:'Œuvre suivante'},
+ de:{menu:'Inhalt',nav_contacts:'Kontakt',prev:'Vorheriges Werk',next:'Nächstes Werk'}
+};
+for(const l in T2)Object.assign(T[l],T2[l]);
+const ROMAN=['I','II','III','IV','V'];
+let lang='it';
+const t=k=>(T[lang]&&T[lang][k])||T.it[k];
+function applyLang(l){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+  document.querySelectorAll('[data-chap]').forEach(e=>e.textContent=l==='zh'?'[ 第'+'一二三四五'[ROMAN.indexOf(e.dataset.chap)]+'章 ]':'[ '+t('chapter')+' '+e.dataset.chap+' ]');
+  document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
+  document.querySelectorAll('[data-l]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+  syncSound();
+  try{localStorage.setItem('verso-lang',l)}catch(e){}
+}
+document.querySelectorAll('[data-l]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.l)));
+
+/* indice */
+const menu=document.getElementById('menu'),menuBtn=document.getElementById('menuBtn');
+function setMenu(open){
+  menu.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);
+  menuBtn.firstElementChild.textContent=t(open?'close':'menu');
+  document.body.style.overflow=open?'hidden':'';
+  if(open)setTimeout(()=>menu.querySelector('a').focus({preventScroll:true}),300);
+}
+menuBtn.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);menuBtn.focus()}});
+
+/* i titoli dei capitoli si svelano quando entrano */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -15% 0px'});
+document.querySelectorAll('.chap-title').forEach(el=>io.observe(el));
+
+/* caricamento */
+(function(){
+  const el=document.getElementById('loader'),c=document.getElementById('count');
+  if(reduce){el.classList.add('done');return}
+  const t0=performance.now();
+  (function tick(){const k=clamp((performance.now()-t0)/1100,0,1);c.textContent=String(Math.round(k*100)).padStart(3,'0');if(k<1)requestAnimationFrame(tick);else setTimeout(()=>el.classList.add('done'),150)})();
+})();
+
+/* dipinti generati come segnaposto delle foto vere */
+function rng(s){return()=>(s=(s*16807)%2147483647)/2147483647}
+function paint(c,seed,pal,w,h){
+  const R=rng(seed),p=pal;c.width=w;c.height=h;
+  const x=c.getContext('2d'),pick=()=>p[1+Math.floor(R()*(p.length-1))],big=w>900;
+  x.fillStyle=p[0];x.fillRect(0,0,w,h);
+  for(let k=0;k<(big?40:24);k++){x.globalAlpha=.18+R()*.5;x.fillStyle=pick();x.beginPath();const r=20+R()*w*.3;x.ellipse(R()*w,R()*h,r,r*(.3+R()*.9),R()*3,0,7);x.fill()}
+  for(let k=0;k<(big?20:10);k++){x.globalAlpha=.5;x.strokeStyle=pick();x.lineWidth=2+R()*(big?26:10);x.lineCap='round';x.beginPath();x.moveTo(R()*w,R()*h);x.bezierCurveTo(R()*w,R()*h,R()*w,R()*h,R()*w,R()*h);x.stroke()}
+  x.globalAlpha=1;
+}
+document.querySelectorAll('canvas.paint').forEach(c=>paint(c,+c.dataset.seed,c.dataset.pal.split(' '),1400,900));
+
+/* catalogo d'esempio: 30 opere */
+const PALS=[['#ead9c2','#c8893b','#6b4a38','#2a1f1a'],['#f4efe7','#7a2430','#c8893b','#1c1614'],['#e7ddd0','#a06a3f','#3d3530','#e3b878'],['#efe6da','#4a5a6a','#c8893b','#1a1614'],['#f1e4d3','#b5562b','#e3b878','#3a2a22'],['#e9e1d6','#2f3a5a','#7a2430','#f4efe7']];
+const TECH=['Olio su tela','Acrilico su tela','Tecnica mista su carta','Acquerello','Olio su tavola','Inchiostro e parole su carta'];
+const SIZES=['100 × 80 cm','70 × 50 cm','120 × 90 cm','40 × 30 cm','60 × 60 cm','150 × 100 cm'];
+const WORKS=Array.from({length:30},(_,i)=>({n:i+1,title:'Titolo opera '+String(i+1).padStart(2,'0'),tech:TECH[i%6],size:SIZES[(i*7)%6],year:2025-(i%8),sold:i%7===3,seed:11+i*13,pal:PALS[i%6],r:[1.25,.8,1,1.4,1.25][i%5]}));
+const grid=document.getElementById('grid'),track=document.getElementById('track');
+WORKS.forEach((w,i)=>{
+  const b=document.createElement('button');b.type='button';
+  const c=document.createElement('canvas');paint(c,w.seed,w.pal,240,300);
+  const s=document.createElement('span');s.innerHTML='<b></b> · '+w.year+(w.sold?' <em class="st" data-i18n="sold"></em>':'');s.querySelector('b').textContent=w.title;
+  b.append(c,s);b.addEventListener('click',()=>openSheet(i));grid.append(b);
+  if(i<5){const f=document.createElement('button');f.type='button';f.className='work';
+    const fc=document.createElement('canvas');paint(fc,w.seed,w.pal,600,Math.round(600*w.r));
+    const fs=document.createElement('span');fs.className='lab';fs.innerHTML='<b></b> · '+w.tech+' · '+w.year;fs.querySelector('b').textContent=w.title;
+    f.append(fc,fs);f.addEventListener('click',()=>openSheet(i));track.append(f)}
+});
+const sheet=document.getElementById('sheet');
+let cur=0;
+function openSheet(i){
+  cur=(i+WORKS.length)%WORKS.length;const w=WORKS[cur];
+  document.getElementById('sheetPos').textContent=String(cur+1).padStart(2,'0')+' / '+WORKS.length;
+  paint(document.getElementById('sheetArt'),w.seed,w.pal,600,750);
+  document.getElementById('sheetTitle').textContent=w.title;
+  const dl=document.getElementById('sheetData');dl.innerHTML='';
+  [['technique',w.tech],['size',w.size],['year',w.year],['status',t(w.sold?'sold':'avail')]].forEach(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;dl.append(dt,dd)});
+  if(!sheet.open){if(sheet.showModal)sheet.showModal();else sheet.setAttribute('open','')}
+}
+document.getElementById('prevW').addEventListener('click',()=>openSheet(cur-1));
+document.getElementById('nextW').addEventListener('click',()=>openSheet(cur+1));
+sheet.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')openSheet(cur-1);if(e.key==='ArrowRight')openSheet(cur+1)});
+document.getElementById('closeSheet').addEventListener('click',()=>sheet.close());
+document.getElementById('askLink').addEventListener('click',()=>sheet.close());
+sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close()});
+
+/* apertura 3D: forme calde che galleggiano e seguono il mouse */
+(function(){
+  if(!window.THREE)return;
+  const canvas=document.getElementById('gl'),stage=document.getElementById('stage');
+  let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true})}catch(e){return}
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(40,1,.1,100);cam.position.z=14;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.1;
+  scene.fog=new THREE.Fog(0x15100d,11,24);
+  scene.add(new THREE.HemisphereLight(0xfff1e0,0x2a1a12,.55));
+  const key=new THREE.DirectionalLight(0xfff4e6,1.1);key.position.set(5,6,8);scene.add(key);
+  const rim=new THREE.PointLight(0xe3a868,1,40);rim.position.set(-7,-3,5);scene.add(rim);
+  /* sassi opachi nei colori della tavolozza, pochi anelli d'oro sottili */
+  const stone=[0xb07a42,0x6a2530,0xe6ddd0,0x2b2320,0x8a5a3c,0xd9c7ad];
+  const pebble=new THREE.SphereGeometry(1,64,64),ring=new THREE.TorusGeometry(1,.035,16,128);
+  const gold=new THREE.MeshStandardMaterial({color:0xe3b878,metalness:.9,roughness:.28});
+  const group=new THREE.Group();scene.add(group);const items=[];const R=rng(99);
+  for(let i=0;i<22;i++){
+    const isRing=i%5===2;
+    const mesh=new THREE.Mesh(isRing?ring:pebble,isRing?gold:new THREE.MeshStandardMaterial({color:stone[i%stone.length],roughness:.62+R()*.3,metalness:0}));
+    mesh.position.set((R()-.5)*15,(R()-.5)*8.5,(R()-.5)*6);
+    if(!isRing)mesh.scale.set(1,.55+R()*.35,.8+R()*.2);
+    mesh.scale.multiplyScalar(isRing?1.1+R()*.9:.5+R()*.8);mesh.rotation.set(R()*6,R()*6,R()*6);
+    group.add(mesh);items.push({mesh,sp:.2+R()*.5,ph:R()*6,y:mesh.position.y});
+  }
+  let mx=0,my=0;
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5});
+  function size(){const r=stage.getBoundingClientRect();renderer.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.updateProjectionMatrix()}
+  size();addEventListener('resize',size);
+  let visible=true;new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(stage);
+  const t0=performance.now();
+  (function loop(){
+    requestAnimationFrame(loop);if(!visible)return;
+    const tt=reduce?0:(performance.now()-t0)/1000,sy=scrollY/innerHeight;
+    items.forEach(o=>{if(!reduce){o.mesh.rotation.x+=.003*o.sp;o.mesh.rotation.y+=.004*o.sp}o.mesh.position.y=o.y+Math.sin(tt*o.sp+o.ph)*.35});
+    group.rotation.y+=((mx*.6+sy*.8)-group.rotation.y)*.05;
+    group.rotation.x+=((my*.4)-group.rotation.x)*.05;
+    cam.position.z=14-Math.min(sy,1)*4;
+    renderer.render(scene,cam);
+  })();
+})();
+
+/* suono di sottofondo facoltativo: un accordo lento generato */
+let ctx,master,playing=false,voices=[];
+function startAudio(){
+  const A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+  ctx=ctx||new A();if(ctx.state==='suspended')ctx.resume();
+  master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+  [110,164.81,220,277.18,329.63].forEach((f,i)=>{
+    const o=ctx.createOscillator(),g=ctx.createGain(),lfo=ctx.createOscillator(),lg=ctx.createGain();
+    o.type=i<2?'sine':'triangle';o.frequency.value=f;o.detune.value=i%2?-6:6;
+    g.gain.value=i<2?.22:.06;lfo.frequency.value=.06+i*.03;lg.gain.value=.05;
+    lfo.connect(lg).connect(g.gain);o.connect(g).connect(master);o.start();lfo.start();voices.push(o,lfo);
+  });
+  master.gain.linearRampToValueAtTime(.3,ctx.currentTime+2.5);playing=true;syncSound();
+}
+function stopAudio(){if(!ctx||!master)return;const m=master,v=voices;voices=[];m.gain.cancelScheduledValues(ctx.currentTime);m.gain.setValueAtTime(m.gain.value,ctx.currentTime);m.gain.linearRampToValueAtTime(0,ctx.currentTime+1.2);setTimeout(()=>v.forEach(o=>o.stop()),1400);playing=false;syncSound()}
+function syncSound(){const b=document.getElementById('soundBtn');b.textContent=t(playing?'sound_on':'sound_off');b.setAttribute('aria-pressed',playing)}
+document.getElementById('soundBtn').addEventListener('click',()=>playing?stopAudio():startAudio());
+
+/* video segnaposto: pennellate che scorrono */
+document.querySelectorAll('canvas.flow').forEach(c=>{
+  const x=c.getContext('2d');let vis=false;
+  new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(c);
+  const R=rng(+c.dataset.seed),strokes=Array.from({length:40},()=>({x:R(),y:R(),a:R()*6,s:.001+R()*.002,col:['#c8893b','#7a2430','#f4efe7','#e3b878'][Math.floor(R()*4)],w:3+R()*18}));
+  function size(){c.width=c.clientWidth||600;c.height=c.clientHeight||375;x.fillStyle='#1d1815';x.fillRect(0,0,c.width,c.height)}
+  size();addEventListener('resize',size);
+  (function loop(){
+    requestAnimationFrame(loop);if(!vis||reduce)return;
+    x.globalAlpha=.04;x.fillStyle='#1d1815';x.fillRect(0,0,c.width,c.height);
+    strokes.forEach(s=>{const nx=s.x+Math.cos(s.a)*s.s,ny=s.y+Math.sin(s.a)*s.s;x.globalAlpha=.35;x.strokeStyle=s.col;x.lineWidth=s.w;x.lineCap='round';x.beginPath();x.moveTo(s.x*c.width,s.y*c.height);x.lineTo(nx*c.width,ny*c.height);x.stroke();s.x=nx;s.y=ny;s.a+=(Math.random()-.5)*.2;if(s.x<-.1||s.x>1.1||s.y<-.1||s.y>1.1){s.x=Math.random();s.y=Math.random()}});
+  })();
+});
+
+/* copia telefono ed email */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.copy),done=()=>{b.textContent=t('copied');setTimeout(()=>b.textContent=t('copy'),1600)};
+  const pick=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+  try{navigator.clipboard.writeText(el.textContent).then(done,pick)}catch(e){pick()}
+}));
+
+/* la storia, raccontata a capitoli: testi d'esempio */
+const STORY=[
+  ['[ 01 · Testo d\'esempio ]','C\'era una volta una bambina','che disegnava sui margini dei quaderni e scriveva parole dentro i disegni. Qui la sua biografia comincia come una fiaba.'],
+  ['[ 02 · Testo d\'esempio ]','Poi arrivarono i colori','Gli anni di studio, i primi quadri, i versi scritti di notte. Ogni passaggio della vita è una scena, con la sua immagine.'],
+  ['[ 03 · Testo d\'esempio ]','Oggi, nello studio','Pittura e parola si incontrano nello stesso lavoro. Da qui si entra nelle opere.']
+];
+const poem=document.getElementById('poem');
+poem.innerHTML=poem.textContent.split(' ').map(w=>'<span>'+w+'</span>').join(' ');
+const words=[...poem.children];
+function prog(el){const r=el.getBoundingClientRect();return clamp(-r.top/(r.height-innerHeight),0,1)}
+let lastStep=-1;
+function setStory(step){
+  const st=document.getElementById('story');
+  st.querySelectorAll('.layer').forEach((l,i)=>{l.style.opacity=i===step?1:0;l.classList.toggle('on',i===step)});
+  st.querySelectorAll('.steps span').forEach((s,i)=>s.classList.toggle('on',i===step));
+  const cap=document.getElementById('storyCap');[cap.children[0].textContent,cap.children[1].textContent,cap.children[2].textContent]=STORY[step];
+  cap.classList.remove('swap');void cap.offsetWidth;cap.classList.add('swap');
+}
+function onScroll(){
+  const total=document.documentElement.scrollHeight-innerHeight;
+  document.getElementById('beam').style.height=(scrollY/total*100)+'%';
+  const step=Math.min(2,Math.floor(prog(document.getElementById('story'))*3));
+  if(step!==lastStep){lastStep=step;setStory(step)}
+  const p2=prog(document.getElementById('gallery')),max=Math.max(0,track.scrollWidth-innerWidth);
+  track.style.transform='translateX('+(-p2*max)+'px)';
+  document.getElementById('galCount').textContent=String(Math.min(5,1+Math.floor(p2*5))).padStart(2,'0')+' / 05';
+  const lit=Math.round(prog(document.getElementById('poemScene'))*1.15*words.length);
+  words.forEach((w,i)=>w.classList.toggle('lit',i<lit));
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+let saved='it';try{saved=localStorage.getItem('verso-lang')||'it'}catch(e){}
+applyLang(T[saved]?saved:'it');onScroll();
+</script>
+</body>
+</html>
