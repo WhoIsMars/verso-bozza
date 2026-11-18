@@ -11,13 +11,13 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://whoismars.github.io/verso-bozza/anteprima.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#100e0d">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23100e0d'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-style='italic' font-size='40' text-anchor='middle' fill='%23e3b878'%3EV%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#18120f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2318120f'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-style='italic' font-size='40' text-anchor='middle' fill='%23e3b878'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Archivo:wght@300;400;500&family=Archivo+Narrow:wght@500&family=Noto+Serif+SC:wght@400&family=Playfair+Display:ital,wght@0,400;1,400&family=Manrope:wght@400;500&family=Fira+Sans+Condensed:wght@500&display=swap">
 <style>
 /* Layout: apertura in 3D fatta di tele sospese (le opere, e il loro retro), poi capitoli a tutto schermo guidati dallo scorrimento: le opere, la storia, le parole, i video, le mostre, i contatti. */
 :root{
-  --stone:#ebe5dc; --night:#100e0d; --ink:#1a1614; --light:#f4efe7; --mute:#958c83; --mute-on-stone:#6b6259;
+  --stone:#ebe5dc; --night:#18120f; --ink:#1a1614; --light:#f4efe7; --mute:#958c83; --mute-on-stone:#6b6259;
   --ochre:#c8893b; --oxblood:#7a2430; --gold:#e3b878; --sold:#c4574f;
   --display:"Bodoni Moda","Noto Serif SC","Didot",Georgia,serif;
   --body:"Archivo","Noto Serif SC",system-ui,sans-serif;
@@ -50,7 +50,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid curr
 @keyframes loaderOut{to{opacity:0;visibility:hidden}}
 
 /* barra in alto: sempre leggibile, chiara sulle parti color pietra e scura altrove */
-.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:env(safe-area-inset-top,0px);color:var(--light);background:rgba(16,14,13,.66);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid rgba(244,239,231,.07);transition:background-color .4s,color .4s,border-color .4s}
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:env(safe-area-inset-top,0px);color:var(--light);background:rgba(24,18,15,.66);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid rgba(244,239,231,.07);transition:background-color .4s,color .4s,border-color .4s}
 .bar.light{color:var(--ink);background:rgba(235,229,220,.8);border-bottom-color:rgba(26,22,20,.08)}
 .bar>*,.bar-r>*{min-height:52px;display:inline-flex;align-items:center}
 .bar a{color:inherit;text-decoration:none}
@@ -71,7 +71,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid curr
 #menuBtn[aria-expanded=true] i::after{transform:translateY(-2.5px) rotate(-45deg)}
 
 /* indice a tutto schermo */
-.menu{position:fixed;inset:0;z-index:18;background:var(--night);display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:calc(84px + env(safe-area-inset-top,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s .8s}
+.menu{position:fixed;inset:0;z-index:18;overflow-y:auto;overscroll-behavior:contain;background:var(--night);display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:calc(84px + env(safe-area-inset-top,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s .8s}
 .menu.open{clip-path:inset(0);visibility:visible;transition:clip-path .8s cubic-bezier(.7,0,.2,1)}
 .menu ol{list-style:none;margin:0;padding:0;align-self:center;display:grid;gap:clamp(2px,1vh,12px)}
 .menu a{display:flex;align-items:baseline;gap:clamp(14px,3vw,32px);color:var(--light);text-decoration:none;padding-block:4px;transition:color .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
@@ -104,12 +104,12 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid curr
 .stage canvas{display:block;width:100%;height:100%;touch-action:pan-y}
 .stage.hot canvas{cursor:pointer}
 .stage .hint{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#eadfce;pointer-events:none}
-.stage .peek{position:absolute;left:50%;top:18px;transform:translateX(-50%);padding:6px 14px;border-radius:99px;background:rgba(16,14,13,.7);color:var(--light);opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.stage .peek{position:absolute;left:50%;top:18px;transform:translateX(-50%);padding:6px 14px;border-radius:99px;background:rgba(24,18,15,.7);color:var(--light);opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
 .stage .peek.on{opacity:1}
 .marks{display:flex;justify-content:space-between;gap:12px;color:var(--mute-on-stone)}
 
 /* titoli dei capitoli */
-.chap-title{min-height:58vh;display:grid;place-content:center;text-align:center;gap:18px;padding-block:80px}
+.chap-title{min-height:40vh;display:grid;place-content:center;text-align:center;gap:18px;padding-block:80px}
 .chap-title h2{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,9vw,7.5rem);line-height:.95;margin:0}
 .chap-title h2 em{color:var(--gold)}
 .js .chap-title h2{clip-path:inset(0 0 100% 0);transform:translateY(.3em);transition:clip-path 1.2s cubic-bezier(.16,1,.3,1),transform 1.2s cubic-bezier(.16,1,.3,1)}
@@ -123,7 +123,7 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid curr
 .layer{position:absolute;inset:0;transition:opacity .6s ease}
 .layer canvas{width:100%;height:100%;display:block;transform:scale(1.08);transition:transform 6s linear}
 .layer.on canvas{transform:scale(1)}
-.layer::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(16,14,13,.92),rgba(16,14,13,.15) 60%)}
+.layer::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(24,18,15,.92),rgba(24,18,15,.15) 60%)}
 .cap{position:absolute;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:2;display:grid;gap:10px;max-width:780px}
 .cap h3{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,5vw,3.6rem);line-height:1.02;margin:0}
 .cap p{margin:0;color:#dcd3c8;max-width:52ch;font-size:1.05rem}
@@ -141,7 +141,8 @@ button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid curr
 .work:hover canvas{transform:translateY(-6px)}
 .work span{color:var(--mute)}
 .work b{font-family:var(--display);font-weight:400;font-size:1.3rem;letter-spacing:0;text-transform:none;color:var(--light)}
-.gal-head{position:absolute;top:calc(84px + env(safe-area-inset-top,0px));left:0;right:0;z-index:2;display:flex;justify-content:space-between;color:var(--mute)}
+.gal-skip{color:var(--gold);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;gap:.4em}
+.gal-head{position:absolute;top:calc(84px + env(safe-area-inset-top,0px));left:0;right:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--mute)}
 
 /* tutte le opere */
 .archive{padding-block:24px 110px;display:grid;gap:28px}
@@ -239,6 +240,7 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
   #soundBtn .ic{display:block}#soundBtn .txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%)}
   #soundBtn{min-width:44px;justify-content:center}
   .menu-label{display:none}
+  #menuBtn{min-width:44px;justify-content:center}
 }
 @media(prefers-reduced-motion:reduce){.layer,.poem span{transition:none}.layer canvas{transform:none;transition:none}#loader{animation:none;display:none}
   .js .chap-title h2{clip-path:none;transform:none;transition:none}.cap.swap>*,dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:none}}
@@ -303,14 +305,14 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
   <p class="lab chap-sub"><b data-chap="I">Capitolo I</b> · <span data-i18n="ch2_sub">Scorri, la parete si muove</span></p>
 </section>
 
-<section class="scene" id="gallery" style="height:400vh">
+<section class="scene" id="gallery" style="height:280vh">
   <div class="pin">
-    <div class="gal-head gut lab"><span data-i18n="selection">Una selezione</span><span id="galCount">01 / 05</span></div>
+    <div class="gal-head gut lab"><span data-i18n="selection">Una selezione</span><a class="gal-skip" href="#tutte"><span data-i18n="all_works">Tutte le opere</span> ↓</a><span id="galCount">01 / 05</span></div>
     <div class="track" id="track"></div>
   </div>
 </section>
 
-<section class="archive gut">
+<section class="archive gut" id="tutte">
   <header><h3 data-i18n="all_works">Tutte le opere</h3><span class="lab" style="color:var(--mute)" data-i18n="all_hint">30 opere · tocca un'opera per vedere la scheda</span></header>
   <div class="grid" id="grid"></div>
 </section>
@@ -320,7 +322,7 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
   <p class="lab chap-sub"><b data-chap="II">Capitolo II</b> · <span data-i18n="ch1_sub">Una vita raccontata come un racconto</span></p>
 </section>
 
-<section class="scene" id="story" style="height:320vh">
+<section class="scene" id="story" style="height:240vh">
   <ol class="sr" id="storySr"></ol>
   <div class="pin" aria-hidden="true">
     <div class="layer on"><canvas class="paint" data-seed="41" data-pal="#2a1f1a #6b4a38 #c8893b #ead9c2 #7a2430"></canvas></div>
@@ -336,7 +338,7 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
   <p class="lab chap-sub"><b data-chap="III">Capitolo III</b> · <span data-i18n="ch3_sub">Le parole si accendono mentre scorri</span></p>
 </section>
 
-<section class="scene" id="poemScene" style="height:250vh">
+<section class="scene" id="poemScene" style="height:170vh">
   <div class="pin gut">
     <div class="poem-wrap">
       <p class="poem" id="poem"></p>
@@ -384,7 +386,7 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
       <h2 id="sheetTitle">Opera</h2>
       <dl id="sheetData"></dl>
       <div class="ask">
-        <span class="lab" data-i18n="ask">Ti interessa quest'opera?</span>
+        <span class="lab" id="askLab" data-i18n="ask">Ti interessa quest'opera?</span>
         <a class="ask-l" id="askTel" href="tel:+390000000000"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg><span><small data-i18n="call">Chiamami</small><b></b></span></a>
         <a class="ask-l" id="askMail" href="mailto:email@esempio.it"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 6.5l8 6 8-6"/></svg><span><small data-i18n="write">Scrivimi</small><b></b></span></a>
         <p class="ask-note" data-i18n="ask_note">Nell'email trovi già il titolo dell'opera.</p>
@@ -410,7 +412,7 @@ const T={
   ch4:'In <em>movimento</em>',ch4_sub:'Il lavoro nello studio e le opere finite',v1:'Mentre lavoro',v2:'Le opere finite',v_note:'Segnaposto: qui andrà il video vero.',
   ch5:'Mostre ed <em>eventi</em>',ch5_sub:'Dove vedere le opere dal vivo',solo:'Personale',group:'Collettiva',event:'Evento',show_t:'Titolo della mostra',show_meet:'Incontro con l\'artista',place_gal:'Galleria, città',place_space:'Spazio espositivo, città',place_lib:'Biblioteca, città',
   contacts:'Contatti',contact_p:'Per vedere un\'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.',phone:'Telefono',copy:'Copia',copied:'Copiato',
-  ask:'Ti interessa quest\'opera?',call:'Chiamami',write:'Scrivimi',ask_note:'Nell\'email trovi già il titolo dell\'opera.',mail_subject:'Informazioni su',
+  ask_sold:'Questa opera è venduta. Chiedimi opere simili.',ask:'Ti interessa quest\'opera?',call:'Chiamami',write:'Scrivimi',ask_note:'Nell\'email trovi già il titolo dell\'opera.',mail_subject:'Informazioni su',
   technique:'Tecnica',size:'Misure',year:'Anno',status:'Stato',avail:'Disponibile',sold:'Venduta',work:'Opera',prev:'Opera precedente',next:'Opera successiva',
   tech:['Tecnica mista su tela','Tecnica mista','Tecnica mista su carta','Su carta','Su tavola','Segni e parole su carta'],
   story:[['[ 01 · Testo d\'esempio ]','C\'era una volta una bambina','che riempiva i margini dei quaderni di segni e colori. Qui la sua biografia comincia come una fiaba.'],['[ 02 · Testo d\'esempio ]','Poi venne il tempo dello studio','Gli anni di formazione, i primi lavori, le notti passate a cercare una forma. Ogni passaggio della vita è una scena, con la sua immagine.'],['[ 03 · Testo d\'esempio ]','Oggi, nello studio','Linguaggi diversi si incontrano nello stesso lavoro. Ogni opera nasce da questo incontro.']],
@@ -423,7 +425,7 @@ const T={
   ch4:'In <em>motion</em>',ch4_sub:'Work in the studio and finished pieces',v1:'While I work',v2:'Finished works',v_note:'Placeholder: the real video goes here.',
   ch5:'Exhibitions and <em>events</em>',ch5_sub:'Where to see the works in person',solo:'Solo show',group:'Group show',event:'Event',show_t:'Exhibition title',show_meet:'Meet the artist',place_gal:'Gallery, city',place_space:'Exhibition space, city',place_lib:'Library, city',
   contacts:'Contact',contact_p:'To see a work in person, ask for a price or buy it, call or write to me.',phone:'Phone',copy:'Copy',copied:'Copied',
-  ask:'Interested in this work?',call:'Call me',write:'Write to me',ask_note:'The email already includes the title of the work.',mail_subject:'About',
+  ask_sold:'This work is sold. Ask me about similar works.',ask:'Interested in this work?',call:'Call me',write:'Write to me',ask_note:'The email already includes the title of the work.',mail_subject:'About',
   technique:'Technique',size:'Size',year:'Year',status:'Status',avail:'Available',sold:'Sold',work:'Work',prev:'Previous work',next:'Next work',
   tech:['Mixed media on canvas','Mixed media','Mixed media on paper','On paper','On panel','Marks and words on paper'],
   story:[['[ 01 · Sample text ]','Once upon a time there was a girl','who filled the margins of her notebooks with marks and colours. Here her biography begins like a fairy tale.'],['[ 02 · Sample text ]','Then came the years of study','Years of training, the first works, nights spent searching for a form. Every stage of life is a scene, with its own image.'],['[ 03 · Sample text ]','Today, in the studio','Different languages meet in the same work. Every piece is born from that meeting.']],
@@ -436,7 +438,7 @@ const T={
   ch4:'В <em>движении</em>',ch4_sub:'Работа в мастерской и готовые произведения',v1:'Во время работы',v2:'Готовые работы',v_note:'Заглушка: здесь будет настоящее видео.',
   ch5:'Выставки и <em>события</em>',ch5_sub:'Где увидеть работы вживую',solo:'Персональная',group:'Групповая',event:'Событие',show_t:'Название выставки',show_meet:'Встреча с художницей',place_gal:'Галерея, город',place_space:'Выставочное пространство, город',place_lib:'Библиотека, город',
   contacts:'Контакты',contact_p:'Чтобы увидеть работу вживую, узнать цену или купить её, позвоните или напишите мне.',phone:'Телефон',copy:'Копировать',copied:'Скопировано',
-  ask:'Вас интересует эта работа?',call:'Позвонить',write:'Написать',ask_note:'В письме уже указано название работы.',mail_subject:'Запрос:',
+  ask_sold:'Эта работа продана. Спросите меня о похожих.',ask:'Вас интересует эта работа?',call:'Позвонить',write:'Написать',ask_note:'В письме уже указано название работы.',mail_subject:'Запрос:',
   technique:'Техника',size:'Размер',year:'Год',status:'Статус',avail:'Доступна',sold:'Продана',work:'Работа',prev:'Предыдущая работа',next:'Следующая работа',
   tech:['Смешанная техника, холст','Смешанная техника','Смешанная техника, бумага','Бумага','Доска','Знаки и слова на бумаге'],
   story:[['[ 01 · Пример текста ]','Жила-была девочка','которая заполняла поля тетрадей знаками и красками. Здесь её биография начинается как сказка.'],['[ 02 · Пример текста ]','Потом пришли годы учёбы','Годы учёбы, первые работы, ночи в поисках формы. Каждый этап жизни: сцена со своим образом.'],['[ 03 · Пример текста ]','Сегодня, в мастерской','Разные языки встречаются в одной работе. Каждое произведение рождается из этой встречи.']],
@@ -449,7 +451,7 @@ const T={
   ch4:'<em>动态</em>',ch4_sub:'工作室中的创作与完成的作品',v1:'创作中',v2:'完成的作品',v_note:'占位：此处将放置真实视频。',
   ch5:'展览与<em>活动</em>',ch5_sub:'在哪里亲眼看到作品',solo:'个展',group:'联展',event:'活动',show_t:'展览名称',show_meet:'艺术家见面会',place_gal:'画廊，城市',place_space:'展览空间，城市',place_lib:'图书馆，城市',
   contacts:'联系方式',contact_p:'如需亲眼观看作品、询问价格或购买，请致电或写信给我。',phone:'电话',copy:'复制',copied:'已复制',
-  ask:'对这件作品感兴趣？',call:'致电',write:'写信',ask_note:'邮件中已写好作品名称。',mail_subject:'咨询：',
+  ask_sold:'这件作品已售出。可以向我咨询类似作品。',ask:'对这件作品感兴趣？',call:'致电',write:'写信',ask_note:'邮件中已写好作品名称。',mail_subject:'咨询：',
   technique:'技法',size:'尺寸',year:'年份',status:'状态',avail:'可售',sold:'已售',work:'作品',prev:'上一件作品',next:'下一件作品',
   tech:['综合材料，画布','综合材料','综合材料，纸本','纸本','木板','纸上的符号与文字'],
   story:[['[ 01 · 示例文字 ]','从前，有一个小女孩','她在笔记本的页边画满了符号和颜色。她的生平就这样像童话一样开始。'],['[ 02 · 示例文字 ]','后来，是求学的岁月','学习的岁月、最初的作品、为寻找形式而度过的夜晚。人生的每个阶段都是一幕场景，有它自己的画面。'],['[ 03 · 示例文字 ]','如今，在工作室里','不同的语言在同一件作品中相遇。每件作品都诞生于这样的相遇。']],
@@ -462,7 +464,7 @@ const T={
   ch4:'En <em>mouvement</em>',ch4_sub:'Le travail à l\'atelier et les œuvres achevées',v1:'Pendant que je travaille',v2:'Les œuvres achevées',v_note:'Emplacement : la vraie vidéo viendra ici.',
   ch5:'Expositions et <em>événements</em>',ch5_sub:'Où voir les œuvres en vrai',solo:'Personnelle',group:'Collective',event:'Événement',show_t:'Titre de l\'exposition',show_meet:'Rencontre avec l\'artiste',place_gal:'Galerie, ville',place_space:'Espace d\'exposition, ville',place_lib:'Bibliothèque, ville',
   contacts:'Contact',contact_p:'Pour voir une œuvre en vrai, demander un prix ou l\'acheter, appelez-moi ou écrivez-moi.',phone:'Téléphone',copy:'Copier',copied:'Copié',
-  ask:'Cette œuvre vous intéresse ?',call:'Appelez-moi',write:'Écrivez-moi',ask_note:'Le titre de l\'œuvre est déjà dans l\'e-mail.',mail_subject:'À propos de',
+  ask_sold:'Cette œuvre est vendue. Demandez-moi des œuvres similaires.',ask:'Cette œuvre vous intéresse ?',call:'Appelez-moi',write:'Écrivez-moi',ask_note:'Le titre de l\'œuvre est déjà dans l\'e-mail.',mail_subject:'À propos de',
   technique:'Technique',size:'Dimensions',year:'Année',status:'État',avail:'Disponible',sold:'Vendue',work:'Œuvre',prev:'Œuvre précédente',next:'Œuvre suivante',
   tech:['Technique mixte sur toile','Technique mixte','Technique mixte sur papier','Sur papier','Sur panneau','Signes et mots sur papier'],
   story:[['[ 01 · Texte d\'exemple ]','Il était une fois une petite fille','qui remplissait les marges de ses cahiers de signes et de couleurs. Ici, sa biographie commence comme un conte.'],['[ 02 · Texte d\'exemple ]','Puis vinrent les années d\'étude','Les années de formation, les premières œuvres, les nuits à chercher une forme. Chaque étape de la vie est une scène, avec son image.'],['[ 03 · Texte d\'exemple ]','Aujourd\'hui, à l\'atelier','Des langages différents se rencontrent dans une même œuvre. Chaque pièce naît de cette rencontre.']],
@@ -475,7 +477,7 @@ const T={
   ch4:'In <em>Bewegung</em>',ch4_sub:'Arbeit im Atelier und fertige Werke',v1:'Während ich arbeite',v2:'Fertige Werke',v_note:'Platzhalter: hier kommt das echte Video.',
   ch5:'Ausstellungen und <em>Termine</em>',ch5_sub:'Wo man die Werke live sehen kann',solo:'Einzelausstellung',group:'Gruppenausstellung',event:'Veranstaltung',show_t:'Titel der Ausstellung',show_meet:'Begegnung mit der Künstlerin',place_gal:'Galerie, Stadt',place_space:'Ausstellungsraum, Stadt',place_lib:'Bibliothek, Stadt',
   contacts:'Kontakt',contact_p:'Um ein Werk live zu sehen, nach dem Preis zu fragen oder es zu kaufen, rufen Sie mich an oder schreiben Sie mir.',phone:'Telefon',copy:'Kopieren',copied:'Kopiert',
-  ask:'Interesse an diesem Werk?',call:'Anrufen',write:'Schreiben',ask_note:'Der Titel des Werks steht schon in der E-Mail.',mail_subject:'Anfrage zu',
+  ask_sold:'Dieses Werk ist verkauft. Fragen Sie mich nach ähnlichen Werken.',ask:'Interesse an diesem Werk?',call:'Anrufen',write:'Schreiben',ask_note:'Der Titel des Werks steht schon in der E-Mail.',mail_subject:'Anfrage zu',
   technique:'Technik',size:'Maße',year:'Jahr',status:'Status',avail:'Verfügbar',sold:'Verkauft',work:'Werk',prev:'Vorheriges Werk',next:'Nächstes Werk',
   tech:['Mischtechnik auf Leinwand','Mischtechnik','Mischtechnik auf Papier','Auf Papier','Auf Holz','Zeichen und Worte auf Papier'],
   story:[['[ 01 · Beispieltext ]','Es war einmal ein Mädchen','das die Ränder seiner Hefte mit Zeichen und Farben füllte. Hier beginnt ihre Biografie wie ein Märchen.'],['[ 02 · Beispieltext ]','Dann kamen die Jahre des Lernens','Die Ausbildungsjahre, die ersten Werke, Nächte auf der Suche nach einer Form. Jede Lebensstation ist eine Szene mit eigenem Bild.'],['[ 03 · Beispieltext ]','Heute, im Atelier','Verschiedene Sprachen begegnen sich im selben Werk. Jedes Stück entsteht aus dieser Begegnung.']],
@@ -529,6 +531,7 @@ function openSheet(i){
   $('sheetTitle').textContent=wTitle(w);
   const dl=$('sheetData');dl.replaceChildren();
   [['technique',t('tech')[w.ti]],['size',w.size],['year',w.year],['status',t(w.sold?'sold':'avail')]].forEach(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;dl.append(dt,dd)});
+  $('askLab').textContent=t(w.sold?'ask_sold':'ask');
   const at=$('askTel'),am=$('askMail');
   at.href=TEL.getAttribute('href');at.querySelector('b').textContent=TEL.textContent;
   am.href='mailto:'+MAIL.textContent+'?subject='+encodeURIComponent(t('mail_subject')+' '+wTitle(w)+' ('+pad(w.n)+'/'+WORKS.length+')');
