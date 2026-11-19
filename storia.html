@@ -156,6 +156,12 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
 .ask-l span b{font-family:var(--display);font-weight:400;font-size:1.25rem;word-break:break-all}
 .ask-l:hover{border-color:var(--gold);background:rgba(227,184,120,.06)}
 .ask-note{margin:0;font-size:.82rem;color:var(--mute)}
+.chopin{border:1px solid #3a3430;border-radius:12px;padding:16px 18px;display:grid;gap:10px}
+.chopin[hidden]{display:none}
+.chopin .lab{color:var(--gold)}
+.chopin audio{width:100%}
+.chopin-poem{margin:0;font-family:var(--display);font-style:italic;font-size:1.15rem;line-height:1.4}
+.ch-tag{color:var(--gold);font-style:normal}
 
 /* parole */
 .poems{display:grid;gap:40px;padding-block:8px 110px;max-width:1200px;margin-inline:auto}
@@ -212,6 +218,8 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
 .vid p{margin:0;color:var(--mute)}
 
 /* mostre */
+.shows-more{max-width:1200px;margin:-80px auto 0;padding-bottom:110px;display:grid}
+.page-head+.shows{padding-top:48px}
 .shows{padding-block:8px 120px;display:grid;max-width:1200px;margin-inline:auto}
 .show{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:20px;align-items:baseline;padding-block:22px;border-bottom:1px solid #2c2724}
 .show:first-child{border-top:1px solid #2c2724}
@@ -230,6 +238,7 @@ dialog[open]::backdrop{animation:fadeIn .4s ease}
 .line .big:hover{background-size:100% 1px}
 .copy{margin-left:auto;min-height:44px;background:none;border:1px solid var(--ink);color:var(--ink);border-radius:99px;padding:0 18px;cursor:pointer;transition:background-color .3s,color .3s}
 .copy:hover{background:var(--ink);color:var(--stone)}
+.reply{margin:0;color:var(--oxblood);line-height:1.6}
 .note{font-size:.82rem;color:var(--mute-on-stone);max-width:70ch;margin:0}
 
 @media(max-width:760px){
@@ -273,7 +282,7 @@ dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:non
     <li><a href="opere.html"><span>I</span><b data-i18n-html="ch2">Le <em>opere</em></b></a></li>
     <li><a href="storia.html"><span>II</span><b data-i18n-html="ch1">La <em>storia</em></b></a></li>
     <li><a href="manifesto.html"><span>III</span><b data-i18n-html="ch_man">Il <em>manifesto</em></b></a></li>
-    <li><a href="index.html#mostre"><span>IV</span><b data-i18n-html="ch5">Mostre ed <em>eventi</em></b></a></li>
+    <li><a href="mostre.html"><span>IV</span><b data-i18n-html="ch5">Mostre ed <em>eventi</em></b></a></li>
     <li><a href="#contatti"><span>→</span><b data-i18n="nav_contacts">Contatti</b></a></li>
   </ol>
   <div class="menu-foot lab">
@@ -291,6 +300,8 @@ dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:non
 <div class="beam" aria-hidden="true"><i id="beam"></i></div>
 
 <main id="main">
+
+
 
 
 
@@ -314,6 +325,7 @@ dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:non
 <footer class="end gut" id="contatti">
   <h2 class="lab" data-i18n="contacts">Contatti</h2>
   <p data-i18n="contact_p">Per vedere un'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.</p>
+  <p class="lab reply" data-i18n="reply">Rispondo in italiano e in inglese · Le opere si vedono in studio, su appuntamento</p>
   <div class="line"><span class="lab" data-i18n="phone">Telefono</span><a class="big" id="tel" href="tel:+390000000000">+39 000 000 0000</a><button class="copy lab" type="button" data-copy="tel" data-i18n="copy">Copia</button></div>
   <div class="line"><span class="lab">Email</span><a class="big" id="mail" href="mailto:email@esempio.it">email@esempio.it</a><button class="copy lab" type="button" data-copy="mail" data-i18n="copy">Copia</button></div>
   <p class="note" data-i18n="draft_note">Prima bozza. Nome, testi, immagini, video e contatti sono d'esempio. Tutte le traduzioni sono da far rivedere a madrelingua.</p>
@@ -326,6 +338,12 @@ dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:non
       <div class="sheet-top"><div class="sheet-nav lab"><button type="button" id="prevW" data-i18n-aria="prev" aria-label="Opera precedente"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="sheetPos">01 / 30</span><button type="button" id="nextW" data-i18n-aria="next" aria-label="Opera successiva"><svg class="ic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div><button class="close lab" type="button" id="closeSheet" data-i18n="close">Chiudi</button></div>
       <h2 id="sheetTitle">Opera</h2>
       <dl id="sheetData"></dl>
+      <div class="chopin" id="chopin" hidden>
+        <span class="lab">Effetto Chopin · <span id="chPrel"></span></span>
+        <audio id="chAudio" controls preload="none" hidden></audio>
+        <p class="ask-note" id="chNote" data-i18n="ch_audio_note">Qui si potrà ascoltare il preludio, o l'audio di un evento in cui è stato suonato con la poesia.</p>
+        <p class="chopin-poem" id="chPoem"></p>
+      </div>
       <div class="ask">
         <span class="lab" id="askLab" data-i18n="ask">Ti interessa quest'opera?</span>
         <a class="ask-l" id="askTel" href="tel:+390000000000"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg><span><small data-i18n="call">Chiamami</small><b></b></span></a>
@@ -425,30 +443,30 @@ const T={
   poem:'Ich habe das Fenster offen gelassen, damit die Farbe hinauskann und der Abend zurückkommt, um sie zu holen.',
   draft_note:'Erster Entwurf. Name, Texte, Bilder, Videos und Kontakte sind Beispiele. Alle Übersetzungen von Muttersprachlern prüfen lassen.'}
 };
-Object.assign(T.it,{home:'Home',back:'Torna alla home',hero_p:'Arte multidisciplinare. Opere, parole e immagini in movimento.',scroll:'[ Tocca un\'opera per vederla ]',test3d:'Opere in 3D: versione di prova',
+Object.assign(T.it,{reply:'Rispondo in italiano e in inglese · Le opere si vedono in studio, su appuntamento',see_shows:'Vedi tutte le mostre',shows_hint:'Elenco d\'esempio · arriverà l\'elenco completo',price:'Prezzo',on_request:'Su richiesta',prelude:'Preludio op. 28 n.',ch_audio_note:'Qui si potrà ascoltare il preludio, o l\'audio di un evento in cui è stato suonato con la poesia.',ch_poem:'Testo d\'esempio. Qui andrà la poesia scritta per questo preludio.',v2:'Durante un\'esibizione',ch4_sub:'Il lavoro in corso e le esibizioni',tech2:'Effetto Chopin',tech2_p:'Unisce i preludi di Chopin a poesia e pittura. Sotto ogni opera di questa serie si può ascoltare il preludio e leggere la poesia.',home:'Home',back:'Torna alla home',hero_p:'Arte multidisciplinare. Opere, parole e immagini in movimento.',scroll:'[ Tocca un\'opera per vederla ]',test3d:'Opere in 3D: versione di prova',
   ch2_sub:'Dalle prime alle ultime, in breve',see_all:'Vedi tutte le opere',ch_all:'Tutte le <em>opere</em>',ch_thought:'Il <em>pensiero</em>',thought_q:'Ogni opera comincia dove finisce la parola, e ogni parola dove finisce il colore.',read_man:'Leggi il manifesto',
   bio_short:'Testo d\'esempio. Due o tre righe su chi è l\'artista, da dove viene e cosa cerca nel suo lavoro.',read_story:'Leggi la storia completa',poem2:'Il blu non chiede permesso. Entra, si siede, e aspetta che io lo nomini.',
-  ch_man:'Il <em>manifesto</em>',man_sub:'Il pensiero e le tecniche dietro le opere',man_intro:'Testo d\'esempio. Qui andrà il manifesto artistico, con le parole dell\'artista: cosa cerca, da dove parte ogni opera, come le sue due tecniche si collegano.',tech1:'Prima tecnica',tech2:'Seconda tecnica',tech_p:'Testo d\'esempio. Nome e descrizione da confermare con l\'artista.'});
-Object.assign(T.en,{home:'Home',back:'Back to home',hero_p:'Multidisciplinary art. Works, words and moving images.',scroll:'[ Tap a work to see it ]',test3d:'3D works: trial version',
+  ch_man:'Il <em>manifesto</em>',man_sub:'Il pensiero e le tecniche dietro le opere',man_intro:'Testo d\'esempio. Qui andrà il manifesto artistico, con le parole dell\'artista: cosa cerca, da dove parte ogni opera, come le sue due tecniche si collegano.',tech1:'Prima tecnica',tech_p:'Testo d\'esempio. Nome e descrizione da confermare con l\'artista.'});
+Object.assign(T.en,{reply:'I reply in Italian and English · Works can be seen in the studio, by appointment',see_shows:'See all exhibitions',shows_hint:'Sample list · the full list is coming',price:'Price',on_request:'On request',prelude:'Prelude op. 28 no.',ch_audio_note:'Here you will be able to listen to the prelude, or to the audio of an event where it was played with the poem.',ch_poem:'Sample text. The poem written for this prelude goes here.',v2:'During a performance',ch4_sub:'Work in progress and performances',tech2:'Chopin Effect',tech2_p:'It brings together Chopin\'s preludes, poetry and painting. Under each work in this series you can listen to the prelude and read the poem.',home:'Home',back:'Back to home',hero_p:'Multidisciplinary art. Works, words and moving images.',scroll:'[ Tap a work to see it ]',test3d:'3D works: trial version',
   ch2_sub:'From the first to the latest, in brief',see_all:'See all works',ch_all:'All <em>works</em>',ch_thought:'The <em>thought</em>',thought_q:'Every work begins where words end, and every word where colour ends.',read_man:'Read the manifesto',
   bio_short:'Sample text. Two or three lines on who the artist is, where she comes from and what she looks for in her work.',read_story:'Read the full story',poem2:'Blue does not ask permission. It comes in, sits down, and waits for me to name it.',
-  ch_man:'The <em>manifesto</em>',man_sub:'The thinking and techniques behind the works',man_intro:'Sample text. The artistic manifesto goes here, in the artist\'s own words: what she seeks, where each work starts, how her two techniques connect.',tech1:'First technique',tech2:'Second technique',tech_p:'Sample text. Name and description to be confirmed with the artist.'});
-Object.assign(T.ru,{home:'Главная',back:'На главную',hero_p:'Междисциплинарное искусство. Работы, слова и движущиеся образы.',scroll:'[ Нажмите на работу, чтобы открыть ]',test3d:'Работы в 3D: пробная версия',
+  ch_man:'The <em>manifesto</em>',man_sub:'The thinking and techniques behind the works',man_intro:'Sample text. The artistic manifesto goes here, in the artist\'s own words: what she seeks, where each work starts, how her two techniques connect.',tech1:'First technique',tech_p:'Sample text. Name and description to be confirmed with the artist.'});
+Object.assign(T.ru,{reply:'Отвечаю на итальянском и английском · Работы можно увидеть в мастерской по договорённости',see_shows:'Все выставки',shows_hint:'Пример списка · полный список скоро',price:'Цена',on_request:'По запросу',prelude:'Прелюдия op. 28 №',ch_audio_note:'Здесь можно будет послушать прелюдию или запись события, где она звучала вместе со стихотворением.',ch_poem:'Пример текста. Здесь будет стихотворение, написанное к этой прелюдии.',v2:'Во время выступления',ch4_sub:'Работа в процессе и выступления',tech2:'Эффект Шопена',tech2_p:'Соединяет прелюдии Шопена с поэзией и живописью. Под каждой работой этой серии можно послушать прелюдию и прочитать стихотворение.',home:'Главная',back:'На главную',hero_p:'Междисциплинарное искусство. Работы, слова и движущиеся образы.',scroll:'[ Нажмите на работу, чтобы открыть ]',test3d:'Работы в 3D: пробная версия',
   ch2_sub:'От первых до последних, коротко',see_all:'Все работы',ch_all:'Все <em>работы</em>',ch_thought:'<em>Мысль</em>',thought_q:'Каждая работа начинается там, где кончается слово, а каждое слово там, где кончается цвет.',read_man:'Читать манифест',
   bio_short:'Пример текста. Две-три строки о том, кто художница, откуда она и что ищет в своей работе.',read_story:'Читать всю историю',poem2:'Синий не спрашивает разрешения. Входит, садится и ждёт, пока я его назову.',
-  ch_man:'<em>Манифест</em>',man_sub:'Мысль и техники за работами',man_intro:'Пример текста. Здесь будет художественный манифест словами художницы: что она ищет, с чего начинается каждая работа, как связаны две её техники.',tech1:'Первая техника',tech2:'Вторая техника',tech_p:'Пример текста. Название и описание уточнить у художницы.'});
-Object.assign(T.zh,{home:'首页',back:'返回首页',hero_p:'跨学科艺术。作品、文字与流动的影像。',scroll:'[ 点击作品查看 ]',test3d:'3D 作品：试用版',
+  ch_man:'<em>Манифест</em>',man_sub:'Мысль и техники за работами',man_intro:'Пример текста. Здесь будет художественный манифест словами художницы: что она ищет, с чего начинается каждая работа, как связаны две её техники.',tech1:'Первая техника',tech_p:'Пример текста. Название и описание уточнить у художницы.'});
+Object.assign(T.zh,{reply:'我用意大利语和英语回复 · 可预约到工作室看作品',see_shows:'查看全部展览',shows_hint:'示例列表 · 完整列表即将补充',price:'价格',on_request:'价格面议',prelude:'前奏曲 作品28 第',ch_audio_note:'这里将可以聆听前奏曲，或聆听一场演奏前奏曲并朗诵诗歌的活动录音。',ch_poem:'示例文字。这里将放为这首前奏曲写的诗。',v2:'演出现场',ch4_sub:'创作过程与演出',tech2:'肖邦效应',tech2_p:'将肖邦的前奏曲与诗歌和绘画结合。在这个系列的每件作品下方，可以聆听前奏曲并阅读诗歌。',home:'首页',back:'返回首页',hero_p:'跨学科艺术。作品、文字与流动的影像。',scroll:'[ 点击作品查看 ]',test3d:'3D 作品：试用版',
   ch2_sub:'从最早到最新，简要一览',see_all:'查看全部作品',ch_all:'全部<em>作品</em>',ch_thought:'<em>思想</em>',thought_q:'每件作品始于语言的尽头，每个词语始于色彩的尽头。',read_man:'阅读艺术宣言',
   bio_short:'示例文字。用两三行介绍艺术家是谁、来自哪里、在作品中追寻什么。',read_story:'阅读完整故事',poem2:'蓝色从不请求允许。它走进来，坐下，等我叫出它的名字。',
-  ch_man:'艺术<em>宣言</em>',man_sub:'作品背后的思想与技法',man_intro:'示例文字。这里将放艺术家亲笔的艺术宣言：她追寻什么，每件作品从何开始，她的两种技法如何相连。',tech1:'第一种技法',tech2:'第二种技法',tech_p:'示例文字。名称和说明待与艺术家确认。'});
-Object.assign(T.fr,{home:'Accueil',back:'Retour à l\'accueil',hero_p:'Art multidisciplinaire. Œuvres, mots et images en mouvement.',scroll:'[ Touchez une œuvre pour la voir ]',test3d:'Œuvres en 3D : version d\'essai',
+  ch_man:'艺术<em>宣言</em>',man_sub:'作品背后的思想与技法',man_intro:'示例文字。这里将放艺术家亲笔的艺术宣言：她追寻什么，每件作品从何开始，她的两种技法如何相连。',tech1:'第一种技法',tech_p:'示例文字。名称和说明待与艺术家确认。'});
+Object.assign(T.fr,{reply:'Je réponds en italien et en anglais · Les œuvres se voient à l\'atelier, sur rendez-vous',see_shows:'Voir toutes les expositions',shows_hint:'Liste d\'exemple · la liste complète arrive',price:'Prix',on_request:'Sur demande',prelude:'Prélude op. 28 n°',ch_audio_note:'Ici, vous pourrez écouter le prélude, ou l\'audio d\'un événement où il a été joué avec le poème.',ch_poem:'Texte d\'exemple. Ici ira le poème écrit pour ce prélude.',v2:'Pendant une performance',ch4_sub:'Le travail en cours et les performances',tech2:'Effet Chopin',tech2_p:'Il réunit les préludes de Chopin, la poésie et la peinture. Sous chaque œuvre de cette série, on peut écouter le prélude et lire le poème.',home:'Accueil',back:'Retour à l\'accueil',hero_p:'Art multidisciplinaire. Œuvres, mots et images en mouvement.',scroll:'[ Touchez une œuvre pour la voir ]',test3d:'Œuvres en 3D : version d\'essai',
   ch2_sub:'Des premières aux plus récentes, en bref',see_all:'Voir toutes les œuvres',ch_all:'Toutes les <em>œuvres</em>',ch_thought:'La <em>pensée</em>',thought_q:'Chaque œuvre commence là où finit le mot, et chaque mot là où finit la couleur.',read_man:'Lire le manifeste',
   bio_short:'Texte d\'exemple. Deux ou trois lignes sur qui est l\'artiste, d\'où elle vient et ce qu\'elle cherche dans son travail.',read_story:'Lire toute l\'histoire',poem2:'Le bleu ne demande pas la permission. Il entre, s\'assoit, et attend que je le nomme.',
-  ch_man:'Le <em>manifeste</em>',man_sub:'La pensée et les techniques derrière les œuvres',man_intro:'Texte d\'exemple. Ici ira le manifeste artistique, avec les mots de l\'artiste : ce qu\'elle cherche, d\'où part chaque œuvre, comment ses deux techniques se relient.',tech1:'Première technique',tech2:'Deuxième technique',tech_p:'Texte d\'exemple. Nom et description à confirmer avec l\'artiste.'});
-Object.assign(T.de,{home:'Start',back:'Zur Startseite',hero_p:'Multidisziplinäre Kunst. Werke, Worte und bewegte Bilder.',scroll:'[ Tippen Sie auf ein Werk ]',test3d:'Werke in 3D: Testversion',
+  ch_man:'Le <em>manifeste</em>',man_sub:'La pensée et les techniques derrière les œuvres',man_intro:'Texte d\'exemple. Ici ira le manifeste artistique, avec les mots de l\'artiste : ce qu\'elle cherche, d\'où part chaque œuvre, comment ses deux techniques se relient.',tech1:'Première technique',tech_p:'Texte d\'exemple. Nom et description à confirmer avec l\'artiste.'});
+Object.assign(T.de,{reply:'Ich antworte auf Italienisch und Englisch · Die Werke sind im Atelier zu sehen, nach Vereinbarung',see_shows:'Alle Ausstellungen ansehen',shows_hint:'Beispielliste · die vollständige Liste folgt',price:'Preis',on_request:'Auf Anfrage',prelude:'Prélude op. 28 Nr.',ch_audio_note:'Hier kann man das Prélude hören, oder die Aufnahme einer Veranstaltung, bei der es mit dem Gedicht gespielt wurde.',ch_poem:'Beispieltext. Hier steht das Gedicht, das zu diesem Prélude geschrieben wurde.',v2:'Bei einem Auftritt',ch4_sub:'Arbeit im Entstehen und Auftritte',tech2:'Chopin-Effekt',tech2_p:'Verbindet Chopins Préludes mit Poesie und Malerei. Unter jedem Werk dieser Serie kann man das Prélude hören und das Gedicht lesen.',home:'Start',back:'Zur Startseite',hero_p:'Multidisziplinäre Kunst. Werke, Worte und bewegte Bilder.',scroll:'[ Tippen Sie auf ein Werk ]',test3d:'Werke in 3D: Testversion',
   ch2_sub:'Von den ersten bis zu den neuesten, kurz',see_all:'Alle Werke ansehen',ch_all:'Alle <em>Werke</em>',ch_thought:'Der <em>Gedanke</em>',thought_q:'Jedes Werk beginnt, wo das Wort endet, und jedes Wort, wo die Farbe endet.',read_man:'Das Manifest lesen',
   bio_short:'Beispieltext. Zwei oder drei Zeilen darüber, wer die Künstlerin ist, woher sie kommt und was sie in ihrer Arbeit sucht.',read_story:'Die ganze Geschichte lesen',poem2:'Blau fragt nicht um Erlaubnis. Es kommt herein, setzt sich und wartet, bis ich es benenne.',
-  ch_man:'Das <em>Manifest</em>',man_sub:'Das Denken und die Techniken hinter den Werken',man_intro:'Beispieltext. Hier steht das künstlerische Manifest in den Worten der Künstlerin: was sie sucht, wo jedes Werk beginnt, wie ihre zwei Techniken zusammenhängen.',tech1:'Erste Technik',tech2:'Zweite Technik',tech_p:'Beispieltext. Name und Beschreibung mit der Künstlerin abzustimmen.'});
+  ch_man:'Das <em>Manifest</em>',man_sub:'Das Denken und die Techniken hinter den Werken',man_intro:'Beispieltext. Hier steht das künstlerische Manifest in den Worten der Künstlerin: was sie sucht, wo jedes Werk beginnt, wie ihre zwei Techniken zusammenhängen.',tech1:'Erste Technik',tech_p:'Beispieltext. Name und Beschreibung mit der Künstlerin abzustimmen.'});
 let lang='it';
 const t=k=>{const v=(T[lang]||{})[k];return v!==undefined?v:T.it[k]};
 
@@ -467,7 +485,7 @@ document.querySelectorAll('canvas.paint').forEach(c=>paint(c,+c.dataset.seed,c.d
 /* catalogo d'esempio: 30 opere */
 const PALS=[['#ead9c2','#c8893b','#6b4a38','#2a1f1a'],['#f4efe7','#7a2430','#c8893b','#1c1614'],['#e7ddd0','#a06a3f','#3d3530','#e3b878'],['#efe6da','#4a5a6a','#c8893b','#1a1614'],['#f1e4d3','#b5562b','#e3b878','#3a2a22'],['#e9e1d6','#2f3a5a','#7a2430','#f4efe7']];
 const SIZES=['100 × 80 cm','70 × 50 cm','120 × 90 cm','40 × 30 cm','60 × 60 cm','150 × 100 cm'];
-const WORKS=Array.from({length:30},(_,i)=>({n:i+1,ti:i%6,size:SIZES[(i*7)%6],year:2025-(i%8),sold:i%7===3,seed:11+i*13,pal:PALS[i%6],r:[1.25,.8,1,1.4,1.25][i%5]}));
+const WORKS=Array.from({length:30},(_,i)=>({n:i+1,ti:i%6,size:SIZES[(i*7)%6],year:2025-(i%8),sold:i%7===3,seed:11+i*13,pal:PALS[i%6],r:[1.25,.8,1,1.4,1.25][i%5],chopin:i%5===2?(i%24)+1:0,audio:''}));
 const wTitle=w=>t('work')+' '+pad(w.n);
 const relabel=[];
 const grid=$('grid'),picks=$('picks');
@@ -475,7 +493,7 @@ if(grid)WORKS.forEach((w,i)=>{
   const b=document.createElement('button');b.type='button';
   const c=document.createElement('canvas');c.setAttribute('aria-hidden','true');paint(c,w.seed,w.pal,240,300);
   const s=document.createElement('span');b.append(c,s);b.addEventListener('click',()=>openSheet(i));grid.append(b);
-  relabel.push(()=>{const bb=document.createElement('b'),st=document.createElement('em');bb.textContent=wTitle(w);st.className='st '+(w.sold?'sold':'av');st.textContent=w.year+' · '+t(w.sold?'sold':'avail');s.replaceChildren(bb,st)});
+  relabel.push(()=>{const bb=document.createElement('b'),st=document.createElement('em');bb.textContent=wTitle(w);st.className='st '+(w.sold?'sold':'av');st.textContent=w.year+' · '+t(w.sold?'sold':'avail');const k=[bb,st];if(w.chopin){const c=document.createElement('em');c.className='ch-tag';c.textContent=t('tech2');k.push(c)}s.replaceChildren(...k)});
 });
 /* home: cinque opere, dalla più vecchia alla più recente */
 if(picks)[7,5,3,1,0].forEach(i=>{
@@ -486,6 +504,11 @@ if(picks)[7,5,3,1,0].forEach(i=>{
   relabel.push(()=>sm.textContent=wTitle(w)+' · '+t('tech')[w.ti]);
 });
 
+const showsAll=$('showsAll');
+if(showsAll)[['show_t','place_gal','solo'],['show_t','place_space','group'],['show_meet','place_lib','event'],['show_t','place_gal','group']].concat([['show_t','place_space','solo'],['show_t','place_gal','group'],['show_meet','place_lib','event'],['show_t','place_space','group']]).forEach(([a,b,c],i)=>{
+  const d=document.createElement('div');d.className='show';
+  d.innerHTML='<span class="yr">'+(2026-i)+'</span><div><h3 data-i18n="'+a+'"></h3><p data-i18n="'+b+'"></p></div><span class="lab kind" data-i18n="'+c+'"></span>';showsAll.append(d)});
+
 /* scheda opera, con telefono ed email direttamente lì */
 const sheet=$('sheet'),TEL=$('tel'),MAIL=$('mail');
 let cur=0;
@@ -495,8 +518,12 @@ function openSheet(i){
   paint($('sheetArt'),w.seed,w.pal,600,750);
   $('sheetTitle').textContent=wTitle(w);
   const dl=$('sheetData');dl.replaceChildren();
-  [['technique',t('tech')[w.ti]],['size',w.size],['year',w.year],['status',t(w.sold?'sold':'avail')]].forEach(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;dl.append(dt,dd)});
+  [['technique',t('tech')[w.ti]],['size',w.size],['year',w.year],['status',t(w.sold?'sold':'avail')],...(w.sold?[]:[['price',t('on_request')]])].forEach(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;dl.append(dt,dd)});
   $('askLab').textContent=t(w.sold?'ask_sold':'ask');
+  /* effetto Chopin: sotto l'opera il preludio da ascoltare e la poesia */
+  const ch=$('chopin'),au=$('chAudio');ch.hidden=!w.chopin;
+  if(w.chopin){$('chPrel').textContent=t('prelude')+' '+w.chopin+(lang==='zh'?' 首':'');$('chPoem').textContent=t('ch_poem');au.hidden=!w.audio;$('chNote').hidden=!!w.audio;if(w.audio)au.src=w.audio}
+  else{au.pause();au.removeAttribute('src')}
   const at=$('askTel'),am=$('askMail');
   at.href=TEL.getAttribute('href');at.querySelector('b').textContent=TEL.textContent;
   am.href='mailto:'+MAIL.textContent+'?subject='+encodeURIComponent(t('mail_subject')+' '+wTitle(w)+' ('+pad(w.n)+'/'+WORKS.length+')');
@@ -507,6 +534,7 @@ $('prevW').addEventListener('click',()=>openSheet(cur-1));
 $('nextW').addEventListener('click',()=>openSheet(cur+1));
 sheet.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')openSheet(cur-1);if(e.key==='ArrowRight')openSheet(cur+1)});
 $('closeSheet').addEventListener('click',()=>sheet.close());
+sheet.addEventListener('close',()=>$('chAudio').pause());
 sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close()});
 
 function applyLang(l,save){
