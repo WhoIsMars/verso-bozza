@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="it" data-page="opere">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tutte le opere · Verso</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Prima bozza del sito: arte multidisciplinare, opere, parole e immagini in movimento.">
+<meta property="og:title" content="Verso · prima bozza del sito">
+<meta property="og:description" content="Arte multidisciplinare. Opere, parole e immagini in movimento, capitolo dopo capitolo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://whoismars.github.io/verso-bozza/anteprima.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#18120f">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2318120f'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-style='italic' font-size='40' text-anchor='middle' fill='%23e3b878'%3EV%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Archivo:wght@300;400;500&family=Archivo+Narrow:wght@500&family=Noto+Serif+SC:wght@400&family=Playfair+Display:ital,wght@0,400;1,400&family=Manrope:wght@400;500&family=Fira+Sans+Condensed:wght@500&display=swap">
+<style>
+/* Layout: home breve (3D in prova, poche opere, pensiero, storia, video, parole, mostre, contatti) e pagine dedicate per opere, storia e manifesto. Niente scorrimento bloccato. */
+:root{
+  --stone:#ebe5dc; --night:#18120f; --ink:#1a1614; --light:#f4efe7; --mute:#958c83; --mute-on-stone:#6b6259;
+  --ochre:#c8893b; --oxblood:#7a2430; --gold:#e3b878; --sold:#c4574f;
+  --display:"Bodoni Moda","Noto Serif SC","Didot",Georgia,serif;
+  --body:"Archivo","Noto Serif SC",system-ui,sans-serif;
+  --label:"Archivo Narrow","Arial Narrow",system-ui,sans-serif;
+  color-scheme:dark;
+}
+/* il cirillico non esiste in Bodoni e Archivo: per il russo caratteri con le stesse intenzioni */
+:lang(ru){--display:"Playfair Display",Georgia,serif;--body:"Manrope",system-ui,sans-serif;--label:"Fira Sans Condensed","Arial Narrow",sans-serif}
+/* niente corsivo finto sul cinese */
+:lang(zh) em,:lang(zh) .chap-title h2,:lang(zh) .menu b,:lang(zh) .page-head h1,:lang(zh) .thought blockquote{font-style:normal}
+*{box-sizing:border-box}
+body{margin:0;background:var(--night);color:var(--light);font-family:var(--body);font-weight:400;font-size:16px;line-height:1.55}
+::selection{background:var(--gold);color:var(--night)}
+html{scrollbar-color:#3d3430 var(--night);scrollbar-width:thin}
+svg.ic{width:1em;height:1em;display:block;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lab{font-family:var(--label);font-weight:500;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+button{font:inherit}
+button.lab{background:none;border:0;color:inherit;cursor:pointer;padding:0}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.skip{position:fixed;left:16px;top:-80px;z-index:60;background:var(--gold);color:var(--night);padding:12px 18px;text-decoration:none;transition:top .2s}
+.skip:focus{top:16px}
+
+/* caricamento: breve, solo alla prima visita, sparisce anche senza script */
+#loader{position:fixed;inset:0;z-index:50;background:var(--night);display:flex;justify-content:space-between;align-items:flex-end;padding:24px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));pointer-events:none;animation:loaderOut .5s ease 1s forwards}
+#loader b{font-weight:300;font-size:clamp(4rem,14vw,10rem);line-height:.8;font-variant-numeric:tabular-nums}
+#loader i{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.6rem);color:var(--gold)}
+#loader.done{opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+@keyframes loaderOut{to{opacity:0;visibility:hidden}}
+
+/* barra in alto: sempre leggibile, chiara sulle parti color pietra e scura altrove */
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:env(safe-area-inset-top,0px);color:var(--light);background:rgba(24,18,15,.66);-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-bottom:1px solid rgba(244,239,231,.07);transition:background-color .4s,color .4s,border-color .4s}
+.bar.light{color:var(--ink);background:rgba(235,229,220,.8);border-bottom-color:rgba(26,22,20,.08)}
+.bar>*,.bar-r>*{min-height:52px;display:inline-flex;align-items:center}
+.bar a{color:inherit;text-decoration:none}
+.bar-r{display:flex;align-items:center;gap:clamp(14px,2.4vw,28px)}
+#soundBtn{gap:10px}
+#soundBtn .ic{font-size:18px;display:none}
+.bar-contact{position:relative}
+.bar-contact::after{content:"";position:absolute;left:0;right:0;bottom:14px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.bar-contact:hover::after{transform:scaleX(1)}
+.lang-pick{position:relative}
+.lang-pick select{appearance:none;-webkit-appearance:none;background:none;border:0;color:inherit;font-family:var(--label);font-weight:500;font-size:.78rem;letter-spacing:.12em;min-height:44px;padding:0 18px 0 4px;cursor:pointer}
+.lang-pick select option{color:var(--ink);background:var(--light)}
+.lang-pick::after{content:"";position:absolute;right:4px;top:50%;width:5px;height:5px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+#menuBtn{gap:10px}
+#menuBtn i{display:grid;gap:4px;width:18px}
+#menuBtn i::before,#menuBtn i::after{content:"";height:1px;background:currentColor;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+#menuBtn[aria-expanded=true] i::before{transform:translateY(2.5px) rotate(45deg)}
+#menuBtn[aria-expanded=true] i::after{transform:translateY(-2.5px) rotate(-45deg)}
+
+/* indice a tutto schermo */
+.menu{position:fixed;inset:0;z-index:18;overflow-y:auto;overscroll-behavior:contain;background:var(--night);display:grid;grid-template-rows:1fr auto;gap:24px;padding-top:calc(84px + env(safe-area-inset-top,0px));padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s .8s}
+.menu.open{clip-path:inset(0);visibility:visible;transition:clip-path .8s cubic-bezier(.7,0,.2,1)}
+.menu ol{list-style:none;margin:0;padding:0;align-self:center;display:grid;gap:clamp(2px,1vh,12px)}
+.menu a{display:flex;align-items:baseline;gap:clamp(14px,3vw,32px);color:var(--light);text-decoration:none;padding-block:4px;transition:color .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.menu a span{font-family:var(--label);font-weight:500;font-size:.78rem;letter-spacing:.14em;color:var(--mute);min-width:3ch}
+.menu a b{font-family:var(--display);font-weight:400;font-size:min(7.4vh,10.5vw,5.4rem);line-height:1}
+.menu a b em{color:var(--gold)}
+.menu a:hover,.menu a:focus-visible{color:var(--gold);transform:translateX(12px)}
+.menu li{opacity:0;transform:translateY(24px);transition:opacity .5s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.menu.open li{opacity:1;transform:none}
+.menu.open li:nth-child(2){transition-delay:.05s}.menu.open li:nth-child(3){transition-delay:.1s}.menu.open li:nth-child(4){transition-delay:.15s}.menu.open li:nth-child(5){transition-delay:.2s}.menu.open li:nth-child(6){transition-delay:.25s}
+.menu-foot{display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap;border-top:1px solid #2c2724;padding-top:8px;color:var(--mute)}
+.langs{display:flex;flex-wrap:wrap}
+.langs button{background:none;border:0;color:inherit;cursor:pointer;min-width:44px;min-height:44px;padding:0 8px;font-family:var(--label);font-size:.78rem;letter-spacing:.08em}
+.langs button[aria-pressed=true]{color:var(--light);text-decoration:underline;text-underline-offset:5px}
+.langs button:hover{color:var(--light)}
+
+.beam{position:fixed;top:0;bottom:0;right:max(8px,env(safe-area-inset-right,0px));width:1px;z-index:19;background:rgba(255,255,255,.08);pointer-events:none}
+.beam i{position:absolute;left:0;top:0;width:1px;height:0;background:linear-gradient(#fff0,var(--gold) 70%,#fff)}
+
+/* apertura */
+.hero{background:var(--stone);color:var(--ink);padding-block:calc(84px + env(safe-area-inset-top,0px)) 28px;display:grid;gap:18px}
+.hero-top{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:end}
+.hero .mark{display:grid;gap:12px;justify-items:start}
+.hero h1{font-family:var(--display);font-weight:400;font-style:italic;font-size:clamp(3.4rem,11vw,9rem);line-height:.85;margin:0;letter-spacing:-.02em}
+.hero .who{display:grid;gap:10px}
+.hero .who b{font-family:var(--display);font-weight:400;font-size:clamp(1.5rem,2.8vw,2.2rem);line-height:1.1}
+.hero p{margin:0;max-width:46ch;font-size:1.05rem}
+.tag{margin-top:14px;display:inline-block;border:1px solid currentColor;border-radius:99px;padding:3px 10px;color:var(--oxblood)}
+.stage{position:relative;height:min(72vh,680px);border-radius:22px;overflow:hidden;background:radial-gradient(circle at 50% 40%,#3a2c24,#120e0c 72%)}
+.stage canvas{display:block;width:100%;height:100%;touch-action:pan-y}
+.stage.hot canvas{cursor:pointer}
+.stage .hint{position:absolute;left:0;right:0;bottom:16px;text-align:center;color:#eadfce;pointer-events:none}
+.stage .peek{position:absolute;left:50%;top:18px;transform:translateX(-50%);padding:6px 14px;border-radius:99px;background:rgba(24,18,15,.7);color:var(--light);opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.stage .peek.on{opacity:1}
+.marks{display:flex;justify-content:space-between;gap:12px;color:var(--mute-on-stone)}
+
+/* titoli dei capitoli */
+.chap-title{display:grid;gap:12px;padding-block:96px 28px;max-width:1200px;margin-inline:auto}
+.chap-title h2{font-family:var(--display);font-weight:400;font-size:clamp(2.4rem,6vw,4.6rem);line-height:1;margin:0}
+.chap-title h2 em{color:var(--gold)}
+.chap-sub{margin:0;color:var(--mute)}
+
+/* tutte le opere */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,40vw),1fr));gap:24px 16px}
+.grid button{display:grid;gap:10px;background:none;border:0;padding:0;color:inherit;cursor:pointer;text-align:left}
+.grid canvas{width:100%;max-width:100%;aspect-ratio:4/5;height:auto;display:block;border-radius:2px;background:#2a231f;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.grid button:hover canvas{transform:translateY(-4px)}
+.grid span{font-size:.86rem;color:var(--mute);display:grid;gap:2px}
+.grid span b{font-weight:400;color:var(--light)}
+.grid button:focus-visible{outline:1px solid var(--gold);outline-offset:6px}
+.st{display:inline-flex;align-items:center;gap:7px;font-style:normal}
+.st::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.st.sold::before{background:var(--sold)}
+
+/* scheda opera */
+dialog{border:0;padding:0;background:var(--night);color:var(--light);max-width:min(1000px,calc(100vw - 32px));max-height:calc(100svh - 32px);width:100%;border-radius:6px;box-shadow:0 40px 120px #000}
+dialog::backdrop{background:rgba(8,7,6,.82);backdrop-filter:blur(4px)}
+dialog[open]{animation:sheetIn .6s cubic-bezier(.16,1,.3,1)}
+dialog[open]::backdrop{animation:fadeIn .4s ease}
+@keyframes sheetIn{from{opacity:0;transform:translateY(28px) scale(.98)}}
+@keyframes fadeIn{from{opacity:0}}
+.sheet{display:grid;grid-template-columns:1.15fr 1fr;min-height:0}
+.sheet canvas{width:100%;height:100%;max-height:82vh;object-fit:cover;display:block;background:#2a231f}
+.sheet .info{padding:24px 28px 28px;display:grid;gap:16px;align-content:start;min-width:0}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet-nav{display:flex;align-items:center;gap:6px;color:var(--mute)}
+.sheet-nav button{width:44px;height:44px;display:grid;place-content:center;border:1px solid #3a3430;border-radius:50%;background:none;color:var(--light);cursor:pointer;font-size:18px;transition:border-color .3s,color .3s}
+.sheet-nav button:hover{border-color:var(--gold);color:var(--gold)}
+.sheet-nav span{font-variant-numeric:tabular-nums;min-width:7ch;text-align:center}
+.close{min-height:44px;background:none;border:1px solid #3a3430;color:var(--light);border-radius:99px;padding:0 18px;cursor:pointer;transition:border-color .3s}
+.close:hover{border-color:var(--light)}
+.sheet h2{font-family:var(--display);font-weight:400;font-size:2.2rem;margin:0;line-height:1.05}
+.sheet dl{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;margin:0}
+.sheet dt{color:var(--mute)}
+.sheet dd{margin:0}
+.ask{border-top:1px solid #2c2724;padding-top:16px;display:grid;gap:10px}
+.ask .lab{color:var(--mute)}
+.ask-l{display:flex;align-items:center;gap:14px;min-height:56px;padding:0 18px;border:1px solid #3a3430;border-radius:12px;color:var(--light);text-decoration:none;transition:border-color .3s,background-color .3s}
+.ask-l .ic{font-size:20px;color:var(--gold)}
+.ask-l span{display:grid;line-height:1.25}
+.ask-l span small{font-family:var(--label);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.ask-l span b{font-family:var(--display);font-weight:400;font-size:1.25rem;word-break:break-all}
+.ask-l:hover{border-color:var(--gold);background:rgba(227,184,120,.06)}
+.ask-note{margin:0;font-size:.82rem;color:var(--mute)}
+
+/* parole */
+.poems{display:grid;gap:40px;padding-block:8px 110px;max-width:1200px;margin-inline:auto}
+.poem{font-family:var(--display);font-size:clamp(1.5rem,3.6vw,2.6rem);line-height:1.35;max-width:26ch;margin:0}
+.poem+.poem{justify-self:end;text-align:right}
+:lang(zh) .poem{max-width:16em}
+.poem-meta{color:var(--mute)}
+
+/* home: poche opere in ordine di anno, poi il resto in pagine dedicate */
+.picks{padding-block:8px 110px;display:grid;gap:36px;max-width:1200px;margin-inline:auto}
+.picks-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;align-items:end}
+.picks-row button{display:grid;gap:10px;background:none;border:0;padding:0;color:inherit;cursor:pointer;text-align:left}
+.picks-row canvas{width:100%;height:auto;display:block;border-radius:2px;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.picks-row button:hover canvas{transform:translateY(-4px)}
+.picks-row .yr{font-family:var(--display);font-size:1.6rem;color:var(--gold);border-top:1px solid #3a3430;padding-top:10px}
+.picks-row small{color:var(--mute);font-size:.86rem}
+.more{justify-self:start;display:inline-flex;align-items:center;gap:.6em;min-height:52px;padding:0 24px;border:1px solid var(--gold);border-radius:99px;color:var(--gold);text-decoration:none;transition:background-color .3s,color .3s}
+.more:hover{background:var(--gold);color:var(--night)}
+.thought{padding-block:8px 110px;display:grid;gap:22px;max-width:1200px;margin-inline:auto}
+.thought blockquote{margin:0;font-family:var(--display);font-style:italic;font-size:clamp(1.8rem,4.6vw,3.6rem);line-height:1.15;max-width:22ch}
+.bio{padding-block:8px 110px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:32px;align-items:center;max-width:1200px;margin-inline:auto}
+.bio canvas{width:100%;height:auto;aspect-ratio:4/3;display:block;border-radius:4px}
+.bio div{display:grid;gap:24px}
+.bio p{margin:0;font-size:1.2rem;max-width:44ch}
+
+/* pagine dedicate */
+.page-head{background:var(--stone);color:var(--ink);padding-block:calc(96px + env(safe-area-inset-top,0px)) 48px;display:grid;gap:14px}
+.page-head h1{font-family:var(--display);font-weight:400;font-size:clamp(2.8rem,8vw,6rem);line-height:.95;margin:0}
+.page-head h1 em{color:var(--oxblood)}
+.page-head p{margin:0;color:var(--mute-on-stone)}
+.back{color:var(--ink);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;justify-self:start}
+.archive{padding-block:48px 110px}
+.story-list,.man{display:grid;gap:72px;padding-block:64px 110px;max-width:1100px;margin-inline:auto}
+.story-list article{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:center}
+.story-list article:nth-child(2) canvas{order:2}
+.story-list canvas{width:100%;height:auto;aspect-ratio:14/9;display:block;border-radius:4px}
+.story-list div,.man article{display:grid;gap:12px}
+.story-list .lab,.man .lab{color:var(--gold)}
+.story-list h2,.man h2{font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,4vw,3rem);line-height:1.05;margin:0}
+.story-list p,.man p{margin:0;color:#dcd3c8;font-size:1.1rem;max-width:56ch}
+.man{gap:56px}
+.man .man-lead{font-family:var(--display);font-size:clamp(1.4rem,3vw,2.2rem);line-height:1.3;color:var(--light);max-width:34ch}
+.man article{border-top:1px solid #2c2724;padding-top:24px}
+
+/* video */
+.videos{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-block:8px 110px;max-width:1200px;margin-inline:auto}
+.vid{display:grid;gap:12px}
+.vid .frame{position:relative;aspect-ratio:16/10;max-width:100%;border-radius:6px;overflow:hidden;background:#1d1815}
+.vid canvas{width:100%;height:100%;display:block}
+.vid .frame b{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;border:1px solid #fff;display:grid;place-content:center;background:rgba(0,0,0,.25);backdrop-filter:blur(6px);font-size:22px;transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s}
+.vid .frame b svg{fill:currentColor;stroke:none;transform:translateX(2px)}
+.vid:hover .frame b{transform:translate(-50%,-50%) scale(1.08);background:rgba(200,137,59,.35)}
+.vid h3{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:0}
+.vid p{margin:0;color:var(--mute)}
+
+/* mostre */
+.shows{padding-block:8px 120px;display:grid;max-width:1200px;margin-inline:auto}
+.show{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:20px;align-items:baseline;padding-block:22px;border-bottom:1px solid #2c2724}
+.show:first-child{border-top:1px solid #2c2724}
+.show .yr{font-variant-numeric:tabular-nums;color:var(--gold)}
+.show h3{font-family:var(--display);font-weight:400;font-size:clamp(1.3rem,2.6vw,1.9rem);margin:0}
+.show p{margin:4px 0 0;color:var(--mute)}
+.show .kind{color:var(--mute)}
+
+/* contatti */
+.end{background:var(--stone);color:var(--ink);padding-block:100px 60px;display:grid;gap:22px}
+.end h2{margin:0;color:var(--mute-on-stone)}
+.end > p{margin:0;max-width:56ch;font-size:1.1rem}
+.line{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;border-bottom:1px solid #cfc6ba;padding-bottom:14px}
+.line .lab{width:110px;color:var(--mute-on-stone)}
+.line .big{font-family:var(--display);font-size:clamp(1.8rem,6vw,4.4rem);line-height:1.05;word-break:break-word;min-width:0;color:inherit;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .6s cubic-bezier(.16,1,.3,1)}
+.line .big:hover{background-size:100% 1px}
+.copy{margin-left:auto;min-height:44px;background:none;border:1px solid var(--ink);color:var(--ink);border-radius:99px;padding:0 18px;cursor:pointer;transition:background-color .3s,color .3s}
+.copy:hover{background:var(--ink);color:var(--stone)}
+.note{font-size:.82rem;color:var(--mute-on-stone);max-width:70ch;margin:0}
+
+@media(max-width:760px){
+  .hero-top,.sheet,.videos{grid-template-columns:1fr}
+  .stage{height:62svh}
+  .chap-title{padding-block:64px 20px}.picks,.thought,.bio,.videos,.poems{padding-bottom:72px}
+  .picks-row{grid-template-columns:repeat(2,minmax(0,1fr))}.picks-row button:last-child{grid-column:span 2}
+  .bio,.story-list article{grid-template-columns:1fr}.story-list article:nth-child(2) canvas{order:0}
+  .poem+.poem{justify-self:start;text-align:left}
+  .show{grid-template-columns:60px minmax(0,1fr)}.show .kind{grid-column:2}
+  .sheet canvas{max-height:40vh}
+  .line .lab{width:100%}.copy{margin-left:0}
+  .sheet .info{padding:18px 18px 22px}
+  #soundBtn .ic{display:block}#soundBtn .txt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%)}
+  #soundBtn{min-width:44px;justify-content:center}
+  .menu-label{display:none}
+  #menuBtn{min-width:44px;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){#loader{animation:none;display:none}
+dialog[open],dialog[open]::backdrop{animation:none}.menu,.menu li{transition:none}}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main" data-i18n="skip">Vai ai contenuti</a>
+<div id="loader" aria-hidden="true"><b id="count">000</b><i>Verso</i></div>
+
+<div class="bar gut light" id="bar">
+  <button class="lab" type="button" id="soundBtn" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path class="w" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></svg><span class="txt" data-i18n="sound_off">[ Suono spento ]</span></button>
+  <div class="bar-r">
+    <label class="lang-pick lab"><span class="sr" data-i18n="lang">Lingua</span><select id="langSel">
+      <option value="it">IT</option><option value="en">EN</option><option value="ru">RU</option><option value="zh">中文</option><option value="fr">FR</option><option value="de">DE</option>
+    </select></label>
+    <a class="lab bar-contact" href="#contatti" data-i18n="nav_contacts">Contatti</a>
+    <button class="lab" type="button" id="menuBtn" aria-expanded="false" aria-controls="menu"><span class="menu-label" data-i18n="menu">Indice</span><span class="sr" id="menuSr" data-i18n="menu">Indice</span><i aria-hidden="true"></i></button>
+  </div>
+</div>
+<nav class="menu gut" id="menu" aria-label="Indice">
+  <ol>
+    <li><a href="index.html"><span>→</span><b data-i18n="home">Home</b></a></li>
+    <li><a href="opere.html"><span>I</span><b data-i18n-html="ch2">Le <em>opere</em></b></a></li>
+    <li><a href="storia.html"><span>II</span><b data-i18n-html="ch1">La <em>storia</em></b></a></li>
+    <li><a href="manifesto.html"><span>III</span><b data-i18n-html="ch_man">Il <em>manifesto</em></b></a></li>
+    <li><a href="index.html#mostre"><span>IV</span><b data-i18n-html="ch5">Mostre ed <em>eventi</em></b></a></li>
+    <li><a href="#contatti"><span>→</span><b data-i18n="nav_contacts">Contatti</b></a></li>
+  </ol>
+  <div class="menu-foot lab">
+    <div class="langs" role="group" data-i18n-aria="lang" aria-label="Lingua">
+      <button type="button" data-l="it" aria-pressed="true">IT</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+      <button type="button" data-l="ru" aria-pressed="false">RU</button>
+      <button type="button" data-l="zh" aria-pressed="false">中文</button>
+      <button type="button" data-l="fr" aria-pressed="false">FR</button>
+      <button type="button" data-l="de" aria-pressed="false">DE</button>
+    </div>
+    <span>Nome Cognome</span>
+  </div>
+</nav>
+<div class="beam" aria-hidden="true"><i id="beam"></i></div>
+
+<main id="main">
+
+
+
+<header class="page-head gut">
+  <a class="back lab" href="index.html">← <span data-i18n="back">Torna alla home</span></a>
+  <h1 data-i18n-html="ch_all">Tutte le <em>opere</em></h1>
+  <p class="lab" data-i18n="all_hint">30 opere · tocca un'opera per vedere la scheda</p>
+</header>
+<section class="archive gut" id="tutte">
+  <div class="grid" id="grid"></div>
+</section>
+
+
+
+
+
+</main>
+
+<footer class="end gut" id="contatti">
+  <h2 class="lab" data-i18n="contacts">Contatti</h2>
+  <p data-i18n="contact_p">Per vedere un'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.</p>
+  <div class="line"><span class="lab" data-i18n="phone">Telefono</span><a class="big" id="tel" href="tel:+390000000000">+39 000 000 0000</a><button class="copy lab" type="button" data-copy="tel" data-i18n="copy">Copia</button></div>
+  <div class="line"><span class="lab">Email</span><a class="big" id="mail" href="mailto:email@esempio.it">email@esempio.it</a><button class="copy lab" type="button" data-copy="mail" data-i18n="copy">Copia</button></div>
+  <p class="note" data-i18n="draft_note">Prima bozza. Nome, testi, immagini, video e contatti sono d'esempio. Tutte le traduzioni sono da far rivedere a madrelingua.</p>
+</footer>
+
+<dialog id="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet">
+    <canvas id="sheetArt" width="600" height="750" aria-hidden="true"></canvas>
+    <div class="info">
+      <div class="sheet-top"><div class="sheet-nav lab"><button type="button" id="prevW" data-i18n-aria="prev" aria-label="Opera precedente"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span id="sheetPos">01 / 30</span><button type="button" id="nextW" data-i18n-aria="next" aria-label="Opera successiva"><svg class="ic" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div><button class="close lab" type="button" id="closeSheet" data-i18n="close">Chiudi</button></div>
+      <h2 id="sheetTitle">Opera</h2>
+      <dl id="sheetData"></dl>
+      <div class="ask">
+        <span class="lab" id="askLab" data-i18n="ask">Ti interessa quest'opera?</span>
+        <a class="ask-l" id="askTel" href="tel:+390000000000"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.2 6.2l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg><span><small data-i18n="call">Chiamami</small><b></b></span></a>
+        <a class="ask-l" id="askMail" href="mailto:email@esempio.it"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 6.5l8 6 8-6"/></svg><span><small data-i18n="write">Scrivimi</small><b></b></span></a>
+        <p class="ask-note" data-i18n="ask_note">Nell'email trovi già il titolo dell'opera.</p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+
+<script>
+document.documentElement.classList.add('js');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const pad=n=>String(n).padStart(2,'0');
+const $=id=>document.getElementById(id);
+
+/* tutti i testi in sei lingue: d'esempio, da far rivedere a madrelingua */
+const T={
+ it:{sound_off:'[ Suono spento ]',sound_on:'[ Suono acceso ]',lang:'Lingua',skip:'Vai ai contenuti',menu:'Indice',close:'Chiudi',nav_contacts:'Contatti',
+  provisional:'Nome provvisorio, da scegliere',hero_p:'Arte multidisciplinare. Opere, parole e immagini in movimento, raccontate capitolo dopo capitolo.',scroll:'[ Tocca un\'opera · scorri per entrare ]',draft:'Prima bozza · immagini e testi d\'esempio',chapter:'Capitolo',
+  ch1:'La <em>storia</em>',ch1_sub:'Una vita raccontata come un racconto',ch2:'Le <em>opere</em>',ch2_sub:'Scorri, la parete si muove',selection:'Una selezione',all_works:'Tutte le opere',all_hint:'30 opere · tocca un\'opera per vedere la scheda',
+  ch3:'Le <em>parole</em>',ch3_sub:'Le parole si accendono mentre scorri',sample_text:'[ Testo d\'esempio ]',
+  ch4:'In <em>movimento</em>',ch4_sub:'Il lavoro nello studio e le opere finite',v1:'Mentre lavoro',v2:'Le opere finite',v_note:'Segnaposto: qui andrà il video vero.',
+  ch5:'Mostre ed <em>eventi</em>',ch5_sub:'Dove vedere le opere dal vivo',solo:'Personale',group:'Collettiva',event:'Evento',show_t:'Titolo della mostra',show_meet:'Incontro con l\'artista',place_gal:'Galleria, città',place_space:'Spazio espositivo, città',place_lib:'Biblioteca, città',
+  contacts:'Contatti',contact_p:'Per vedere un\'opera dal vivo, chiedere un prezzo o acquistarla, chiamami o scrivimi.',phone:'Telefono',copy:'Copia',copied:'Copiato',
+  ask_sold:'Questa opera è venduta. Chiedimi opere simili.',ask:'Ti interessa quest\'opera?',call:'Chiamami',write:'Scrivimi',ask_note:'Nell\'email trovi già il titolo dell\'opera.',mail_subject:'Informazioni su',
+  technique:'Tecnica',size:'Misure',year:'Anno',status:'Stato',avail:'Disponibile',sold:'Venduta',work:'Opera',prev:'Opera precedente',next:'Opera successiva',
+  tech:['Tecnica mista su tela','Tecnica mista','Tecnica mista su carta','Su carta','Su tavola','Segni e parole su carta'],
+  story:[['[ 01 · Testo d\'esempio ]','C\'era una volta una bambina','che riempiva i margini dei quaderni di segni e colori. Qui la sua biografia comincia come una fiaba.'],['[ 02 · Testo d\'esempio ]','Poi venne il tempo dello studio','Gli anni di formazione, i primi lavori, le notti passate a cercare una forma. Ogni passaggio della vita è una scena, con la sua immagine.'],['[ 03 · Testo d\'esempio ]','Oggi, nello studio','Linguaggi diversi si incontrano nello stesso lavoro. Ogni opera nasce da questo incontro.']],
+  poem:'Ho lasciato la finestra aperta perché il colore potesse uscire, e la sera tornasse a prenderlo.',
+  draft_note:'Prima bozza. Nome, testi, immagini, video e contatti sono d\'esempio. Tutte le traduzioni sono da far rivedere a madrelingua.'},
+ en:{sound_off:'[ Sound off ]',sound_on:'[ Sound on ]',lang:'Language',skip:'Skip to content',menu:'Index',close:'Close',nav_contacts:'Contact',
+  provisional:'Working name, still to be chosen',hero_p:'Multidisciplinary art. Works, words and moving images, told chapter by chapter.',scroll:'[ Tap a work · scroll to enter ]',draft:'First draft · sample images and texts',chapter:'Chapter',
+  ch1:'The <em>story</em>',ch1_sub:'A life told as a tale',ch2:'The <em>works</em>',ch2_sub:'Scroll, the wall moves',selection:'A selection',all_works:'All works',all_hint:'30 works · tap a work to see its details',
+  ch3:'The <em>words</em>',ch3_sub:'The words light up as you scroll',sample_text:'[ Sample text ]',
+  ch4:'In <em>motion</em>',ch4_sub:'Work in the studio and finished pieces',v1:'While I work',v2:'Finished works',v_note:'Placeholder: the real video goes here.',
+  ch5:'Exhibitions and <em>events</em>',ch5_sub:'Where to see the works in person',solo:'Solo show',group:'Group show',event:'Event',show_t:'Exhibition title',show_meet:'Meet the artist',place_gal:'Gallery, city',place_space:'Exhibition space, city',place_lib:'Library, city',
+  contacts:'Contact',contact_p:'To see a work in person, ask for a price or buy it, call or write to me.',phone:'Phone',copy:'Copy',copied:'Copied',
+  ask_sold:'This work is sold. Ask me about similar works.',ask:'Interested in this work?',call:'Call me',write:'Write to me',ask_note:'The email already includes the title of the work.',mail_subject:'About',
+  technique:'Technique',size:'Size',year:'Year',status:'Status',avail:'Available',sold:'Sold',work:'Work',prev:'Previous work',next:'Next work',
+  tech:['Mixed media on canvas','Mixed media','Mixed media on paper','On paper','On panel','Marks and words on paper'],
+  story:[['[ 01 · Sample text ]','Once upon a time there was a girl','who filled the margins of her notebooks with marks and colours. Here her biography begins like a fairy tale.'],['[ 02 · Sample text ]','Then came the years of study','Years of training, the first works, nights spent searching for a form. Every stage of life is a scene, with its own image.'],['[ 03 · Sample text ]','Today, in the studio','Different languages meet in the same work. Every piece is born from that meeting.']],
+  poem:'I left the window open so the colour could get out, and the evening could come back for it.',
+  draft_note:'First draft. Name, texts, images, videos and contacts are samples. All translations to be checked by native speakers.'},
+ ru:{sound_off:'[ Звук выкл. ]',sound_on:'[ Звук вкл. ]',lang:'Язык',skip:'Перейти к содержанию',menu:'Оглавление',close:'Закрыть',nav_contacts:'Контакты',
+  provisional:'Рабочее название, ещё не выбрано',hero_p:'Междисциплинарное искусство. Работы, слова и движущиеся образы, глава за главой.',scroll:'[ Нажмите на работу · прокрутите, чтобы войти ]',draft:'Первый черновик · примеры изображений и текстов',chapter:'Глава',
+  ch1:'<em>История</em>',ch1_sub:'Жизнь, рассказанная как сказка',ch2:'<em>Работы</em>',ch2_sub:'Прокручивайте, стена движется',selection:'Избранное',all_works:'Все работы',all_hint:'30 работ · нажмите на работу, чтобы открыть описание',
+  ch3:'<em>Слова</em>',ch3_sub:'Слова загораются при прокрутке',sample_text:'[ Пример текста ]',
+  ch4:'В <em>движении</em>',ch4_sub:'Работа в мастерской и готовые произведения',v1:'Во время работы',v2:'Готовые работы',v_note:'Заглушка: здесь будет настоящее видео.',
+  ch5:'Выставки и <em>события</em>',ch5_sub:'Где увидеть работы вживую',solo:'Персональная',group:'Групповая',event:'Событие',show_t:'Название выставки',show_meet:'Встреча с художницей',place_gal:'Галерея, город',place_space:'Выставочное пространство, город',place_lib:'Библиотека, город',
+  contacts:'Контакты',contact_p:'Чтобы увидеть работу вживую, узнать цену или купить её, позвоните или напишите мне.',phone:'Телефон',copy:'Копировать',copied:'Скопировано',
+  ask_sold:'Эта работа продана. Спросите меня о похожих.',ask:'Вас интересует эта работа?',call:'Позвонить',write:'Написать',ask_note:'В письме уже указано название работы.',mail_subject:'Запрос:',
+  technique:'Техника',size:'Размер',year:'Год',status:'Статус',avail:'Доступна',sold:'Продана',work:'Работа',prev:'Предыдущая работа',next:'Следующая работа',
+  tech:['Смешанная техника, холст','Смешанная техника','Смешанная техника, бумага','Бумага','Доска','Знаки и слова на бумаге'],
+  story:[['[ 01 · Пример текста ]','Жила-была девочка','которая заполняла поля тетрадей знаками и красками. Здесь её биография начинается как сказка.'],['[ 02 · Пример текста ]','Потом пришли годы учёбы','Годы учёбы, первые работы, ночи в поисках формы. Каждый этап жизни: сцена со своим образом.'],['[ 03 · Пример текста ]','Сегодня, в мастерской','Разные языки встречаются в одной работе. Каждое произведение рождается из этой встречи.']],
+  poem:'Я оставила окно открытым, чтобы цвет мог выйти, а вечер вернулся за ним.',
+  draft_note:'Первый черновик. Название, тексты, изображения, видео и контакты приведены для примера. Все переводы нужно проверить носителям языка.'},
+ zh:{sound_off:'[ 声音 关 ]',sound_on:'[ 声音 开 ]',lang:'语言',skip:'跳到内容',menu:'目录',close:'关闭',nav_contacts:'联系方式',
+  provisional:'暂定名称，待确定',hero_p:'跨学科艺术。作品、文字与动态影像，一章一章地讲述。',scroll:'[ 点击作品 · 向下滚动进入 ]',draft:'初稿 · 示例图片与文字',chapter:'第',
+  ch1:'<em>故事</em>',ch1_sub:'像讲故事一样讲述人生',ch2:'<em>作品</em>',ch2_sub:'滚动，墙面随之移动',selection:'精选',all_works:'全部作品',all_hint:'30 件作品 · 点击作品查看详情',
+  ch3:'<em>文字</em>',ch3_sub:'文字随滚动逐一亮起',sample_text:'[ 示例文字 ]',
+  ch4:'<em>动态</em>',ch4_sub:'工作室中的创作与完成的作品',v1:'创作中',v2:'完成的作品',v_note:'占位：此处将放置真实视频。',
+  ch5:'展览与<em>活动</em>',ch5_sub:'在哪里亲眼看到作品',solo:'个展',group:'联展',event:'活动',show_t:'展览名称',show_meet:'艺术家见面会',place_gal:'画廊，城市',place_space:'展览空间，城市',place_lib:'图书馆，城市',
+  contacts:'联系方式',contact_p:'如需亲眼观看作品、询问价格或购买，请致电或写信给我。',phone:'电话',copy:'复制',copied:'已复制',
+  ask_sold:'这件作品已售出。可以向我咨询类似作品。',ask:'对这件作品感兴趣？',call:'致电',write:'写信',ask_note:'邮件中已写好作品名称。',mail_subject:'咨询：',
+  technique:'技法',size:'尺寸',year:'年份',status:'状态',avail:'可售',sold:'已售',work:'作品',prev:'上一件作品',next:'下一件作品',
+  tech:['综合材料，画布','综合材料','综合材料，纸本','纸本','木板','纸上的符号与文字'],
+  story:[['[ 01 · 示例文字 ]','从前，有一个小女孩','她在笔记本的页边画满了符号和颜色。她的生平就这样像童话一样开始。'],['[ 02 · 示例文字 ]','后来，是求学的岁月','学习的岁月、最初的作品、为寻找形式而度过的夜晚。人生的每个阶段都是一幕场景，有它自己的画面。'],['[ 03 · 示例文字 ]','如今，在工作室里','不同的语言在同一件作品中相遇。每件作品都诞生于这样的相遇。']],
+  poem:'我把窗户开着，让颜色可以出去，也让傍晚回来把它带走。',
+  draft_note:'初稿。名称、文字、图片、视频和联系方式均为示例。所有翻译需请母语人士审校。'},
+ fr:{sound_off:'[ Son coupé ]',sound_on:'[ Son activé ]',lang:'Langue',skip:'Aller au contenu',menu:'Sommaire',close:'Fermer',nav_contacts:'Contact',
+  provisional:'Nom provisoire, à choisir',hero_p:'Art pluridisciplinaire. Œuvres, mots et images en mouvement, racontés chapitre après chapitre.',scroll:'[ Touchez une œuvre · faites défiler pour entrer ]',draft:'Première ébauche · images et textes d\'exemple',chapter:'Chapitre',
+  ch1:'L\'<em>histoire</em>',ch1_sub:'Une vie racontée comme un conte',ch2:'Les <em>œuvres</em>',ch2_sub:'Faites défiler, le mur bouge',selection:'Une sélection',all_works:'Toutes les œuvres',all_hint:'30 œuvres · touchez une œuvre pour voir sa fiche',
+  ch3:'Les <em>mots</em>',ch3_sub:'Les mots s\'allument pendant le défilement',sample_text:'[ Texte d\'exemple ]',
+  ch4:'En <em>mouvement</em>',ch4_sub:'Le travail à l\'atelier et les œuvres achevées',v1:'Pendant que je travaille',v2:'Les œuvres achevées',v_note:'Emplacement : la vraie vidéo viendra ici.',
+  ch5:'Expositions et <em>événements</em>',ch5_sub:'Où voir les œuvres en vrai',solo:'Personnelle',group:'Collective',event:'Événement',show_t:'Titre de l\'exposition',show_meet:'Rencontre avec l\'artiste',place_gal:'Galerie, ville',place_space:'Espace d\'exposition, ville',place_lib:'Bibliothèque, ville',
+  contacts:'Contact',contact_p:'Pour voir une œuvre en vrai, demander un prix ou l\'acheter, appelez-moi ou écrivez-moi.',phone:'Téléphone',copy:'Copier',copied:'Copié',
+  ask_sold:'Cette œuvre est vendue. Demandez-moi des œuvres similaires.',ask:'Cette œuvre vous intéresse ?',call:'Appelez-moi',write:'Écrivez-moi',ask_note:'Le titre de l\'œuvre est déjà dans l\'e-mail.',mail_subject:'À propos de',
+  technique:'Technique',size:'Dimensions',year:'Année',status:'État',avail:'Disponible',sold:'Vendue',work:'Œuvre',prev:'Œuvre précédente',next:'Œuvre suivante',
+  tech:['Technique mixte sur toile','Technique mixte','Technique mixte sur papier','Sur papier','Sur panneau','Signes et mots sur papier'],
+  story:[['[ 01 · Texte d\'exemple ]','Il était une fois une petite fille','qui remplissait les marges de ses cahiers de signes et de couleurs. Ici, sa biographie commence comme un conte.'],['[ 02 · Texte d\'exemple ]','Puis vinrent les années d\'étude','Les années de formation, les premières œuvres, les nuits à chercher une forme. Chaque étape de la vie est une scène, avec son image.'],['[ 03 · Texte d\'exemple ]','Aujourd\'hui, à l\'atelier','Des langages différents se rencontrent dans une même œuvre. Chaque pièce naît de cette rencontre.']],
+  poem:'J\'ai laissé la fenêtre ouverte pour que la couleur puisse sortir, et que le soir revienne la chercher.',
+  draft_note:'Première ébauche. Nom, textes, images, vidéos et contacts sont des exemples. Toutes les traductions sont à faire relire par des locuteurs natifs.'},
+ de:{sound_off:'[ Ton aus ]',sound_on:'[ Ton an ]',lang:'Sprache',skip:'Zum Inhalt',menu:'Inhalt',close:'Schließen',nav_contacts:'Kontakt',
+  provisional:'Arbeitstitel, noch zu wählen',hero_p:'Multidisziplinäre Kunst. Werke, Worte und bewegte Bilder, Kapitel für Kapitel erzählt.',scroll:'[ Werk antippen · scrollen zum Eintreten ]',draft:'Erster Entwurf · Beispielbilder und -texte',chapter:'Kapitel',
+  ch1:'Die <em>Geschichte</em>',ch1_sub:'Ein Leben, erzählt wie ein Märchen',ch2:'Die <em>Werke</em>',ch2_sub:'Scrollen, die Wand bewegt sich',selection:'Eine Auswahl',all_works:'Alle Werke',all_hint:'30 Werke · Werk antippen für Details',
+  ch3:'Die <em>Worte</em>',ch3_sub:'Die Worte leuchten beim Scrollen auf',sample_text:'[ Beispieltext ]',
+  ch4:'In <em>Bewegung</em>',ch4_sub:'Arbeit im Atelier und fertige Werke',v1:'Während ich arbeite',v2:'Fertige Werke',v_note:'Platzhalter: hier kommt das echte Video.',
+  ch5:'Ausstellungen und <em>Termine</em>',ch5_sub:'Wo man die Werke live sehen kann',solo:'Einzelausstellung',group:'Gruppenausstellung',event:'Veranstaltung',show_t:'Titel der Ausstellung',show_meet:'Begegnung mit der Künstlerin',place_gal:'Galerie, Stadt',place_space:'Ausstellungsraum, Stadt',place_lib:'Bibliothek, Stadt',
+  contacts:'Kontakt',contact_p:'Um ein Werk live zu sehen, nach dem Preis zu fragen oder es zu kaufen, rufen Sie mich an oder schreiben Sie mir.',phone:'Telefon',copy:'Kopieren',copied:'Kopiert',
+  ask_sold:'Dieses Werk ist verkauft. Fragen Sie mich nach ähnlichen Werken.',ask:'Interesse an diesem Werk?',call:'Anrufen',write:'Schreiben',ask_note:'Der Titel des Werks steht schon in der E-Mail.',mail_subject:'Anfrage zu',
+  technique:'Technik',size:'Maße',year:'Jahr',status:'Status',avail:'Verfügbar',sold:'Verkauft',work:'Werk',prev:'Vorheriges Werk',next:'Nächstes Werk',
+  tech:['Mischtechnik auf Leinwand','Mischtechnik','Mischtechnik auf Papier','Auf Papier','Auf Holz','Zeichen und Worte auf Papier'],
+  story:[['[ 01 · Beispieltext ]','Es war einmal ein Mädchen','das die Ränder seiner Hefte mit Zeichen und Farben füllte. Hier beginnt ihre Biografie wie ein Märchen.'],['[ 02 · Beispieltext ]','Dann kamen die Jahre des Lernens','Die Ausbildungsjahre, die ersten Werke, Nächte auf der Suche nach einer Form. Jede Lebensstation ist eine Szene mit eigenem Bild.'],['[ 03 · Beispieltext ]','Heute, im Atelier','Verschiedene Sprachen begegnen sich im selben Werk. Jedes Stück entsteht aus dieser Begegnung.']],
+  poem:'Ich habe das Fenster offen gelassen, damit die Farbe hinauskann und der Abend zurückkommt, um sie zu holen.',
+  draft_note:'Erster Entwurf. Name, Texte, Bilder, Videos und Kontakte sind Beispiele. Alle Übersetzungen von Muttersprachlern prüfen lassen.'}
+};
+Object.assign(T.it,{home:'Home',back:'Torna alla home',hero_p:'Arte multidisciplinare. Opere, parole e immagini in movimento.',scroll:'[ Tocca un\'opera per vederla ]',test3d:'Opere in 3D: versione di prova',
+  ch2_sub:'Dalle prime alle ultime, in breve',see_all:'Vedi tutte le opere',ch_all:'Tutte le <em>opere</em>',ch_thought:'Il <em>pensiero</em>',thought_q:'Ogni opera comincia dove finisce la parola, e ogni parola dove finisce il colore.',read_man:'Leggi il manifesto',
+  bio_short:'Testo d\'esempio. Due o tre righe su chi è l\'artista, da dove viene e cosa cerca nel suo lavoro.',read_story:'Leggi la storia completa',poem2:'Il blu non chiede permesso. Entra, si siede, e aspetta che io lo nomini.',
+  ch_man:'Il <em>manifesto</em>',man_sub:'Il pensiero e le tecniche dietro le opere',man_intro:'Testo d\'esempio. Qui andrà il manifesto artistico, con le parole dell\'artista: cosa cerca, da dove parte ogni opera, come le sue due tecniche si collegano.',tech1:'Prima tecnica',tech2:'Seconda tecnica',tech_p:'Testo d\'esempio. Nome e descrizione da confermare con l\'artista.'});
+Object.assign(T.en,{home:'Home',back:'Back to home',hero_p:'Multidisciplinary art. Works, words and moving images.',scroll:'[ Tap a work to see it ]',test3d:'3D works: trial version',
+  ch2_sub:'From the first to the latest, in brief',see_all:'See all works',ch_all:'All <em>works</em>',ch_thought:'The <em>thought</em>',thought_q:'Every work begins where words end, and every word where colour ends.',read_man:'Read the manifesto',
+  bio_short:'Sample text. Two or three lines on who the artist is, where she comes from and what she looks for in her work.',read_story:'Read the full story',poem2:'Blue does not ask permission. It comes in, sits down, and waits for me to name it.',
+  ch_man:'The <em>manifesto</em>',man_sub:'The thinking and techniques behind the works',man_intro:'Sample text. The artistic manifesto goes here, in the artist\'s own words: what she seeks, where each work starts, how her two techniques connect.',tech1:'First technique',tech2:'Second technique',tech_p:'Sample text. Name and description to be confirmed with the artist.'});
+Object.assign(T.ru,{home:'Главная',back:'На главную',hero_p:'Междисциплинарное искусство. Работы, слова и движущиеся образы.',scroll:'[ Нажмите на работу, чтобы открыть ]',test3d:'Работы в 3D: пробная версия',
+  ch2_sub:'От первых до последних, коротко',see_all:'Все работы',ch_all:'Все <em>работы</em>',ch_thought:'<em>Мысль</em>',thought_q:'Каждая работа начинается там, где кончается слово, а каждое слово там, где кончается цвет.',read_man:'Читать манифест',
+  bio_short:'Пример текста. Две-три строки о том, кто художница, откуда она и что ищет в своей работе.',read_story:'Читать всю историю',poem2:'Синий не спрашивает разрешения. Входит, садится и ждёт, пока я его назову.',
+  ch_man:'<em>Манифест</em>',man_sub:'Мысль и техники за работами',man_intro:'Пример текста. Здесь будет художественный манифест словами художницы: что она ищет, с чего начинается каждая работа, как связаны две её техники.',tech1:'Первая техника',tech2:'Вторая техника',tech_p:'Пример текста. Название и описание уточнить у художницы.'});
+Object.assign(T.zh,{home:'首页',back:'返回首页',hero_p:'跨学科艺术。作品、文字与流动的影像。',scroll:'[ 点击作品查看 ]',test3d:'3D 作品：试用版',
+  ch2_sub:'从最早到最新，简要一览',see_all:'查看全部作品',ch_all:'全部<em>作品</em>',ch_thought:'<em>思想</em>',thought_q:'每件作品始于语言的尽头，每个词语始于色彩的尽头。',read_man:'阅读艺术宣言',
+  bio_short:'示例文字。用两三行介绍艺术家是谁、来自哪里、在作品中追寻什么。',read_story:'阅读完整故事',poem2:'蓝色从不请求允许。它走进来，坐下，等我叫出它的名字。',
+  ch_man:'艺术<em>宣言</em>',man_sub:'作品背后的思想与技法',man_intro:'示例文字。这里将放艺术家亲笔的艺术宣言：她追寻什么，每件作品从何开始，她的两种技法如何相连。',tech1:'第一种技法',tech2:'第二种技法',tech_p:'示例文字。名称和说明待与艺术家确认。'});
+Object.assign(T.fr,{home:'Accueil',back:'Retour à l\'accueil',hero_p:'Art multidisciplinaire. Œuvres, mots et images en mouvement.',scroll:'[ Touchez une œuvre pour la voir ]',test3d:'Œuvres en 3D : version d\'essai',
+  ch2_sub:'Des premières aux plus récentes, en bref',see_all:'Voir toutes les œuvres',ch_all:'Toutes les <em>œuvres</em>',ch_thought:'La <em>pensée</em>',thought_q:'Chaque œuvre commence là où finit le mot, et chaque mot là où finit la couleur.',read_man:'Lire le manifeste',
+  bio_short:'Texte d\'exemple. Deux ou trois lignes sur qui est l\'artiste, d\'où elle vient et ce qu\'elle cherche dans son travail.',read_story:'Lire toute l\'histoire',poem2:'Le bleu ne demande pas la permission. Il entre, s\'assoit, et attend que je le nomme.',
+  ch_man:'Le <em>manifeste</em>',man_sub:'La pensée et les techniques derrière les œuvres',man_intro:'Texte d\'exemple. Ici ira le manifeste artistique, avec les mots de l\'artiste : ce qu\'elle cherche, d\'où part chaque œuvre, comment ses deux techniques se relient.',tech1:'Première technique',tech2:'Deuxième technique',tech_p:'Texte d\'exemple. Nom et description à confirmer avec l\'artiste.'});
+Object.assign(T.de,{home:'Start',back:'Zur Startseite',hero_p:'Multidisziplinäre Kunst. Werke, Worte und bewegte Bilder.',scroll:'[ Tippen Sie auf ein Werk ]',test3d:'Werke in 3D: Testversion',
+  ch2_sub:'Von den ersten bis zu den neuesten, kurz',see_all:'Alle Werke ansehen',ch_all:'Alle <em>Werke</em>',ch_thought:'Der <em>Gedanke</em>',thought_q:'Jedes Werk beginnt, wo das Wort endet, und jedes Wort, wo die Farbe endet.',read_man:'Das Manifest lesen',
+  bio_short:'Beispieltext. Zwei oder drei Zeilen darüber, wer die Künstlerin ist, woher sie kommt und was sie in ihrer Arbeit sucht.',read_story:'Die ganze Geschichte lesen',poem2:'Blau fragt nicht um Erlaubnis. Es kommt herein, setzt sich und wartet, bis ich es benenne.',
+  ch_man:'Das <em>Manifest</em>',man_sub:'Das Denken und die Techniken hinter den Werken',man_intro:'Beispieltext. Hier steht das künstlerische Manifest in den Worten der Künstlerin: was sie sucht, wo jedes Werk beginnt, wie ihre zwei Techniken zusammenhängen.',tech1:'Erste Technik',tech2:'Zweite Technik',tech_p:'Beispieltext. Name und Beschreibung mit der Künstlerin abzustimmen.'});
+let lang='it';
+const t=k=>{const v=(T[lang]||{})[k];return v!==undefined?v:T.it[k]};
+
+/* dipinti generati come segnaposto delle foto vere */
+function rng(s){return()=>(s=(s*16807)%2147483647)/2147483647}
+function paint(c,seed,pal,w,h){
+  const R=rng(seed),p=pal;c.width=w;c.height=h;
+  const x=c.getContext('2d'),pick=()=>p[1+Math.floor(R()*(p.length-1))],big=w>900;
+  x.fillStyle=p[0];x.fillRect(0,0,w,h);
+  for(let k=0;k<(big?40:24);k++){x.globalAlpha=.18+R()*.5;x.fillStyle=pick();x.beginPath();const r=20+R()*w*.3;x.ellipse(R()*w,R()*h,r,r*(.3+R()*.9),R()*3,0,7);x.fill()}
+  for(let k=0;k<(big?20:10);k++){x.globalAlpha=.5;x.strokeStyle=pick();x.lineWidth=2+R()*(big?26:10);x.lineCap='round';x.beginPath();x.moveTo(R()*w,R()*h);x.bezierCurveTo(R()*w,R()*h,R()*w,R()*h,R()*w,R()*h);x.stroke()}
+  x.globalAlpha=1;
+}
+document.querySelectorAll('canvas.paint').forEach(c=>paint(c,+c.dataset.seed,c.dataset.pal.split(' '),1400,900));
+
+/* catalogo d'esempio: 30 opere */
+const PALS=[['#ead9c2','#c8893b','#6b4a38','#2a1f1a'],['#f4efe7','#7a2430','#c8893b','#1c1614'],['#e7ddd0','#a06a3f','#3d3530','#e3b878'],['#efe6da','#4a5a6a','#c8893b','#1a1614'],['#f1e4d3','#b5562b','#e3b878','#3a2a22'],['#e9e1d6','#2f3a5a','#7a2430','#f4efe7']];
+const SIZES=['100 × 80 cm','70 × 50 cm','120 × 90 cm','40 × 30 cm','60 × 60 cm','150 × 100 cm'];
+const WORKS=Array.from({length:30},(_,i)=>({n:i+1,ti:i%6,size:SIZES[(i*7)%6],year:2025-(i%8),sold:i%7===3,seed:11+i*13,pal:PALS[i%6],r:[1.25,.8,1,1.4,1.25][i%5]}));
+const wTitle=w=>t('work')+' '+pad(w.n);
+const relabel=[];
+const grid=$('grid'),picks=$('picks');
+if(grid)WORKS.forEach((w,i)=>{
+  const b=document.createElement('button');b.type='button';
+  const c=document.createElement('canvas');c.setAttribute('aria-hidden','true');paint(c,w.seed,w.pal,240,300);
+  const s=document.createElement('span');b.append(c,s);b.addEventListener('click',()=>openSheet(i));grid.append(b);
+  relabel.push(()=>{const bb=document.createElement('b'),st=document.createElement('em');bb.textContent=wTitle(w);st.className='st '+(w.sold?'sold':'av');st.textContent=w.year+' · '+t(w.sold?'sold':'avail');s.replaceChildren(bb,st)});
+});
+/* home: cinque opere, dalla più vecchia alla più recente */
+if(picks)[7,5,3,1,0].forEach(i=>{
+  const w=WORKS[i],b=document.createElement('button');b.type='button';
+  const y=document.createElement('span');y.className='yr';y.textContent=w.year;
+  const c=document.createElement('canvas');c.setAttribute('aria-hidden','true');paint(c,w.seed,w.pal,360,Math.round(360*w.r));
+  const sm=document.createElement('small');b.append(y,c,sm);b.addEventListener('click',()=>openSheet(i));picks.append(b);
+  relabel.push(()=>sm.textContent=wTitle(w)+' · '+t('tech')[w.ti]);
+});
+
+/* scheda opera, con telefono ed email direttamente lì */
+const sheet=$('sheet'),TEL=$('tel'),MAIL=$('mail');
+let cur=0;
+function openSheet(i){
+  cur=(i+WORKS.length)%WORKS.length;const w=WORKS[cur];
+  $('sheetPos').textContent=pad(cur+1)+' / '+WORKS.length;
+  paint($('sheetArt'),w.seed,w.pal,600,750);
+  $('sheetTitle').textContent=wTitle(w);
+  const dl=$('sheetData');dl.replaceChildren();
+  [['technique',t('tech')[w.ti]],['size',w.size],['year',w.year],['status',t(w.sold?'sold':'avail')]].forEach(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;dl.append(dt,dd)});
+  $('askLab').textContent=t(w.sold?'ask_sold':'ask');
+  const at=$('askTel'),am=$('askMail');
+  at.href=TEL.getAttribute('href');at.querySelector('b').textContent=TEL.textContent;
+  am.href='mailto:'+MAIL.textContent+'?subject='+encodeURIComponent(t('mail_subject')+' '+wTitle(w)+' ('+pad(w.n)+'/'+WORKS.length+')');
+  am.querySelector('b').textContent=MAIL.textContent;
+  if(!sheet.open){if(sheet.showModal)sheet.showModal();else sheet.setAttribute('open','')}
+}
+$('prevW').addEventListener('click',()=>openSheet(cur-1));
+$('nextW').addEventListener('click',()=>openSheet(cur+1));
+sheet.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')openSheet(cur-1);if(e.key==='ArrowRight')openSheet(cur+1)});
+$('closeSheet').addEventListener('click',()=>sheet.close());
+sheet.addEventListener('click',e=>{if(e.target===sheet)sheet.close()});
+
+function applyLang(l,save){
+  lang=l;document.documentElement.lang=l;
+  document.querySelectorAll('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll('[data-i18n-html]').forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+  document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
+  document.querySelectorAll('[data-l]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===l));
+  $('langSel').value=l;$('menu').setAttribute('aria-label',t('menu'));
+  relabel.forEach(f=>f());
+  const sl=$('storyList');if(sl)[...sl.children].forEach((a,i)=>t('story')[i].forEach((v,k)=>a.querySelector('div').children[k].textContent=v));
+  syncSound();setMenuLabel();
+  if(sheet.open)openSheet(cur);
+  if(typeof onScroll==='function')onScroll();
+  if(save)try{localStorage.setItem('verso-lang',l)}catch(e){}
+}
+document.querySelectorAll('[data-l]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.l,true)));
+$('langSel').addEventListener('change',e=>applyLang(e.target.value,true));
+
+/* indice */
+const menu=$('menu'),menuBtn=$('menuBtn');
+function setMenuLabel(){const open=menu.classList.contains('open');menuBtn.querySelectorAll('[data-i18n=menu]').forEach(s=>s.textContent=t(open?'close':'menu'))}
+function setMenu(open){
+  menu.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',open);setMenuLabel();
+  document.body.style.overflow=open?'hidden':'';onScroll();
+  if(open)setTimeout(()=>menu.querySelector('a').focus({preventScroll:true}),300);
+}
+menuBtn.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('open')){setMenu(false);menuBtn.focus()}});
+
+/* caricamento: solo alla prima visita della sessione */
+(function(){
+  const el=$('loader'),c=$('count');let seen=false;
+  try{seen=sessionStorage.getItem('verso-seen')==='1';sessionStorage.setItem('verso-seen','1')}catch(e){}
+  if(reduce||seen){el.style.display='none';return}
+  const t0=performance.now();
+  (function tick(){const k=clamp((performance.now()-t0)/750,0,1);c.textContent=String(Math.round(k*100)).padStart(3,'0');if(k<1)requestAnimationFrame(tick);else setTimeout(()=>el.classList.add('done'),120)})();
+})();
+
+/* apertura 3D: le opere sospese come tele; girandosi mostrano il retro, il "verso" */
+function versoTexture(w,label){
+  const c=document.createElement('canvas'),W=256,H=Math.round(256*w.r);c.width=W;c.height=H;const x=c.getContext('2d'),R=rng(w.seed+3);
+  x.fillStyle='#d6c7ab';x.fillRect(0,0,W,H);
+  for(let i=0;i<900;i++){x.fillStyle=R()<.5?'rgba(120,96,60,.08)':'rgba(255,250,235,.1)';x.fillRect(R()*W,R()*H,1+R()*3,1)}
+  const b=Math.round(W*.07);x.fillStyle='#a9824f';
+  x.fillRect(0,0,W,b);x.fillRect(0,H-b,W,b);x.fillRect(0,0,b,H);x.fillRect(W-b,0,b,H);
+  if(w.r>1)x.fillRect(0,H/2-b/2,W,b);else x.fillRect(W/2-b/2,0,b,H);
+  x.fillStyle='rgba(60,40,20,.25)';for(let i=0;i<4;i++)x.fillRect(b+R()*(W-3*b),b+R()*(H-3*b),3,3);
+  x.fillStyle='#f4efe7';x.fillRect(W*.2,H*.62,W*.6,H*.14);
+  x.fillStyle='#3d3530';x.font='italic '+Math.round(W*.07)+'px "Bodoni Moda",Georgia,serif';x.textAlign='center';x.textBaseline='middle';
+  x.fillText(label,W/2,H*.69);
+  return c;
+}
+(function(){
+  if(!window.THREE||!$('gl'))return;
+  const canvas=$('gl'),stage=$('stage'),peek=$('peek');
+  let renderer;try{renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true})}catch(e){return}
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(38,1,.1,100);cam.position.z=14;
+  scene.fog=new THREE.Fog(0x16110e,13,26);
+  scene.add(new THREE.HemisphereLight(0xfff6ea,0x3a2a1e,1.05));
+  const key=new THREE.DirectionalLight(0xfff1e0,.55);key.position.set(4,5,9);scene.add(key);
+  const warm=new THREE.PointLight(0xe3a868,.5,40);warm.position.set(-6,-3,6);scene.add(warm);
+  const edge=new THREE.MeshStandardMaterial({color:0xe9e0d0,roughness:.9});
+  const group=new THREE.Group();scene.add(group);
+  const PICK=[0,4,7,11,2,15,9,20,13,5,18,24],R=rng(7),aniso=renderer.capabilities.getMaxAnisotropy();
+  const items=PICK.map((wi,k)=>{
+    const w=WORKS[wi],c=document.createElement('canvas');paint(c,w.seed,w.pal,384,Math.round(384*w.r));
+    const front=new THREE.CanvasTexture(c);front.anisotropy=aniso;
+    const back=new THREE.CanvasTexture(versoTexture(w,pad(w.n)+' · '+w.year));back.anisotropy=aniso;
+    const h=1.9+R()*1.1,mesh=new THREE.Mesh(new THREE.BoxGeometry(h/w.r,h,.07),[edge,edge,edge,edge,new THREE.MeshStandardMaterial({map:front,roughness:.85}),new THREE.MeshStandardMaterial({map:back,roughness:.95})]);
+    mesh.userData.i=wi;group.add(mesh);
+    return {mesh,i:wi,sp:.15+R()*.25,ph:R()*6,jx:(R()-.5)*.9,jy:(R()-.5)*.8,z:(R()-.5)*3.5,ry:(R()-.5)*.5,rx:(R()-.5)*.2,turn:k%4===1,lift:0,x:0,y:0};
+  });
+  let n=12,sc=1;
+  function layout(){
+    const narrow=cam.aspect<1,cols=narrow?2:4;n=narrow?6:12;sc=narrow?.78:.88;const rows=Math.ceil(n/cols);
+    items.forEach((o,k)=>{o.mesh.visible=k<n;if(k>=n)return;const col=k%cols,row=Math.floor(k/cols);
+      o.x=(col-(cols-1)/2)*(narrow?3.3:4.2)+o.jx;o.y=((rows-1)/2-row)*(narrow?3.1:2.75)+o.jy;o.mesh.scale.setScalar(sc)});
+  }
+  function size(){const r=stage.getBoundingClientRect();renderer.setSize(r.width,r.height,false);cam.aspect=r.width/r.height;cam.updateProjectionMatrix();layout()}
+  size();addEventListener('resize',size);
+  let mx=0,my=0,hover=null;const ray=new THREE.Raycaster(),ptr=new THREE.Vector2();
+  function hit(e){const r=stage.getBoundingClientRect();ptr.set(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ptr,cam);
+    const h=ray.intersectObjects(items.filter(o=>o.mesh.visible).map(o=>o.mesh))[0];return h?items.find(o=>o.mesh===h.object):null}
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5;
+    if(e.pointerType==='mouse'){hover=hit(e);stage.classList.toggle('hot',!!hover);peek.classList.toggle('on',!!hover);if(hover)peek.textContent=wTitle(WORKS[hover.i])}});
+  stage.addEventListener('pointerleave',()=>{hover=null;stage.classList.remove('hot');peek.classList.remove('on')});
+  canvas.addEventListener('click',e=>{const o=hit(e);if(o)openSheet(o.i)});
+  let visible=true;new IntersectionObserver(es=>visible=es[0].isIntersecting).observe(stage);
+  const t0=performance.now();
+  (function loop(){
+    requestAnimationFrame(loop);if(!visible)return;
+    const tt=reduce?0:(performance.now()-t0)/1000,sy=scrollY/innerHeight;
+    items.forEach(o=>{if(!o.mesh.visible)return;
+      o.lift+=((hover===o?1:0)-o.lift)*.12;
+      o.mesh.position.set(o.x,o.y+Math.sin(tt*o.sp+o.ph)*.22,o.z+o.lift*1.6);
+      o.mesh.rotation.x=o.rx+Math.sin(tt*o.sp*.7+o.ph)*.05;
+      o.mesh.rotation.y=o.turn&&!reduce?o.ry+tt*.16+o.ph:(o.ry+Math.sin(tt*o.sp+o.ph)*.12)*(1-o.lift)});
+    group.rotation.y+=((mx*.22)-group.rotation.y)*.05;
+    group.rotation.x+=((my*.12)-group.rotation.x)*.05;
+    cam.position.z=14-Math.min(sy,1)*3.5;
+    renderer.render(scene,cam);
+  })();
+})();
+
+/* suono di sottofondo facoltativo: un accordo lento generato */
+let ctx,master,playing=false,voices=[];
+function startAudio(){
+  const A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+  ctx=ctx||new A();if(ctx.state==='suspended')ctx.resume();
+  master=ctx.createGain();master.gain.value=0;master.connect(ctx.destination);
+  [110,164.81,220,277.18,329.63].forEach((f,i)=>{
+    const o=ctx.createOscillator(),g=ctx.createGain(),lfo=ctx.createOscillator(),lg=ctx.createGain();
+    o.type=i<2?'sine':'triangle';o.frequency.value=f;o.detune.value=i%2?-6:6;
+    g.gain.value=i<2?.22:.06;lfo.frequency.value=.06+i*.03;lg.gain.value=.05;
+    lfo.connect(lg).connect(g.gain);o.connect(g).connect(master);o.start();lfo.start();voices.push(o,lfo);
+  });
+  master.gain.linearRampToValueAtTime(.3,ctx.currentTime+2.5);playing=true;syncSound();
+}
+function stopAudio(){if(!ctx||!master)return;const m=master,v=voices;voices=[];m.gain.cancelScheduledValues(ctx.currentTime);m.gain.setValueAtTime(m.gain.value,ctx.currentTime);m.gain.linearRampToValueAtTime(0,ctx.currentTime+1.2);setTimeout(()=>v.forEach(o=>o.stop()),1400);playing=false;syncSound()}
+function syncSound(){const b=$('soundBtn');b.querySelector('.txt').textContent=t(playing?'sound_on':'sound_off');b.setAttribute('aria-pressed',playing);b.querySelector('.w').style.opacity=playing?1:.25}
+$('soundBtn').addEventListener('click',()=>playing?stopAudio():startAudio());
+
+/* video segnaposto: pennellate che scorrono */
+document.querySelectorAll('canvas.flow').forEach(c=>{
+  const x=c.getContext('2d');let vis=false;
+  new IntersectionObserver(es=>vis=es[0].isIntersecting).observe(c);
+  const R=rng(+c.dataset.seed),strokes=Array.from({length:40},()=>({x:R(),y:R(),a:R()*6,s:.001+R()*.002,col:['#c8893b','#7a2430','#f4efe7','#e3b878'][Math.floor(R()*4)],w:3+R()*18}));
+  function size(){c.width=c.clientWidth||600;c.height=c.clientHeight||375;x.fillStyle='#1d1815';x.fillRect(0,0,c.width,c.height)}
+  size();addEventListener('resize',size);
+  (function loop(){
+    requestAnimationFrame(loop);if(!vis||reduce)return;
+    x.globalAlpha=.04;x.fillStyle='#1d1815';x.fillRect(0,0,c.width,c.height);
+    strokes.forEach(s=>{const nx=s.x+Math.cos(s.a)*s.s,ny=s.y+Math.sin(s.a)*s.s;x.globalAlpha=.35;x.strokeStyle=s.col;x.lineWidth=s.w;x.lineCap='round';x.beginPath();x.moveTo(s.x*c.width,s.y*c.height);x.lineTo(nx*c.width,ny*c.height);x.stroke();s.x=nx;s.y=ny;s.a+=(Math.random()-.5)*.2;if(s.x<-.1||s.x>1.1||s.y<-.1||s.y>1.1){s.x=Math.random();s.y=Math.random()}});
+  })();
+});
+
+/* copia telefono ed email */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=$(b.dataset.copy),done=()=>{b.textContent=t('copied');setTimeout(()=>b.textContent=t('copy'),1600)};
+  const pick=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r)};
+  try{navigator.clipboard.writeText(el.textContent).then(done,pick)}catch(e){pick()}
+}));
+
+/* scorrimento: solo la barra (chiara sulle parti color pietra) e la linea di avanzamento */
+const bar=$('bar'),hero=document.querySelector('.hero,.page-head'),end=$('contatti');
+function onScroll(){
+  const total=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+  $('beam').style.height=(scrollY/total*100)+'%';
+  const mid=bar.offsetHeight/2;
+  bar.classList.toggle('light',!menu.classList.contains('open')&&(hero.getBoundingClientRect().bottom>mid||end.getBoundingClientRect().top<mid));
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+
+/* lingua: quella scelta prima, altrimenti quella del browser, altrimenti inglese */
+let saved=null;try{saved=localStorage.getItem('verso-lang')}catch(e){}
+const auto=(navigator.languages||[navigator.language||'']).map(l=>String(l).slice(0,2).toLowerCase()).find(l=>T[l]);
+applyLang(T[saved]?saved:(auto||'en'));onScroll();
+</script>
+</body>
+</html>
